@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto1.TelaPrincipalController">
-    
-</AnchorPane>
+
+<VBox fx:id="pnPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto1.TelaPrincipalController">
+   <children>
+      <Canvas fx:id="pnGrafo" height="350.0" width="700.0" />
+      <HBox fx:id="pnMatrizes" prefHeight="200.0" prefWidth="700.0" style="-fx-background-color: lightgray;">
+         <children>
+            <Pane fx:id="pnMatrizAdj" prefHeight="200.0" prefWidth="350.0" />
+            <Pane fx:id="pnMatrizInc" prefHeight="200.0" prefWidth="350.0" />
+         </children>
+      </HBox>
+   </children>
+</VBox>
