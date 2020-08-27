@@ -5,6 +5,7 @@
  */
 package grafosprojeto.objetos;
 
+import javafx.scene.Cursor;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
@@ -14,8 +15,18 @@ import javafx.scene.shape.Circle;
  * @author vicga
  */
 public class Vertice {
-    private Circle bola;
-    private int ID,grau,cx,cy;
+    private Circle bola,dist;
+    private int grau,cx,cy;
+    private char ID,status;
+
+    public Circle getDist() {
+        return dist;
+    }
+
+    public void setDist(Circle dist) {
+        this.dist = dist;
+    }
+    
 
     public int getCx() {
         return cx;
@@ -31,6 +42,14 @@ public class Vertice {
 
     public void setCy(int cy) {
         this.cy = cy;
+    }
+
+    public char getStatus() {
+        return status;
+    }
+
+    public void setStatus(char status) {
+        this.status = status;
     }
     
     
@@ -51,24 +70,32 @@ public class Vertice {
         this.bola = bola;
     }
 
-    public int getID() {
+    public char getID() {
         return ID;
     }
 
-    public void setID(int ID) {
+    public void setID(char ID) {
         this.ID = ID;
+        this.bola.setId(""+ID);
     }
 
     public Vertice() {
+        status = 'c';
     }
     
     public Vertice(int x, int y, Pane p) {
-        bola = new Circle(cx,cy,10);
-        bola.setCenterX(x);
-        bola.setCenterY(y);
-        bola.setFill(Paint.valueOf("0x0000FF"));
+        status = 'c';
+        cx = x;
+        cy = y;
+        dist = new Circle(x,y,30);
+        bola = new Circle(x,y,10);
+        bola.setFill(Paint.valueOf("0x00FFFF"));
         bola.setStroke(Paint.valueOf("0x000000"));
-        
+        dist.setVisible(false);
+        p.getChildren().add(dist);
         p.getChildren().add(bola);
+        
     }
+    
+   
 }

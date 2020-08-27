@@ -14,7 +14,7 @@ import javafx.scene.shape.Line;
  */
 public class Aresta {
     private Line aresta;
-    private int ID1,ID2;
+    private int ID1,ID2,valor;
 
     public Line getAresta() {
         return aresta;

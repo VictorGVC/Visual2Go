@@ -5,6 +5,7 @@
  */
 package grafosprojeto.objetos;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,16 +13,38 @@ import java.util.List;
  * @author vicga
  */
 public class Grafo {
-    List <Vertice>vlist;
-    List <Aresta>alist;
-    String tipo;
-    boolean dir;
+    private List <Vertice>vlist ;
+    private List <Aresta>alist;
+    private String tipo,status;
+    private boolean dir,val;
 
     public Grafo() {
+        this.status = "";
+        vlist = new ArrayList<>();
+        alist = new ArrayList<>();
     }
 
     public Grafo(boolean dir) {
         this.dir = dir;
+        this.status = "";
+        vlist = new ArrayList<>();
+        alist = new ArrayList<>();
+    }
+    
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public boolean isVal() {
+        return val;
+    }
+
+    public void setVal(boolean val) {
+        this.val = val;
     }
 
     public Grafo(String tipo, boolean dir) {

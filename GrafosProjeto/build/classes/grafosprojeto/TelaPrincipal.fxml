@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="pnPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="550.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
+   <children>
+      <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="365.0" prefWidth="700.0">
+         <children>
+            <JFXButton layoutX="25.0" layoutY="300.0" text="X" />
+            <JFXButton layoutX="11.0" layoutY="263.0" text="lixeira" />
+         </children></Pane>
+      <Pane prefHeight="200.0" prefWidth="200.0" />
+   </children>
+</VBox>
