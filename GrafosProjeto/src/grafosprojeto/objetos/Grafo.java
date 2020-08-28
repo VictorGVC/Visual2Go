@@ -1,23 +1,20 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package grafosprojeto.objetos;
 
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author vicga
- */
 public class Grafo {
-    private List <Vertice>vlist ;
-    private List <Aresta>alist;
-    private String tipo,status;
-    private boolean dir,val;
+    
+    private List<Vertice> vlist ;
+    private List<Aresta> alist;
+    private String tipo, status;
+    private boolean dir, val;
 
+    public Grafo(String tipo, boolean dir) {
+        this.tipo = tipo;
+        this.dir = dir;
+    }
+    
     public Grafo() {
         this.status = "";
         vlist = new ArrayList<>();
@@ -45,11 +42,6 @@ public class Grafo {
 
     public void setVal(boolean val) {
         this.val = val;
-    }
-
-    public Grafo(String tipo, boolean dir) {
-        this.tipo = tipo;
-        this.dir = dir;
     }
     
     public List<Vertice> getVlist() {
@@ -83,6 +75,4 @@ public class Grafo {
     public void setDir(boolean dir) {
         this.dir = dir;
     }
-    
-    
 }
