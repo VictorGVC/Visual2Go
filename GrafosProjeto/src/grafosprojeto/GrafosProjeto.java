@@ -18,7 +18,7 @@ public class GrafosProjeto extends Application {
         
         stage.setTitle("Visual2Go");
         stage.getIcons().add(new Image(getClass().getResourceAsStream("/icons/graph.png")));
-        stage.resizableProperty().setValue(Boolean.FALSE);
+        stage.resizableProperty().setValue(false);
         stage.setScene(scene);
         stage.show();
     }

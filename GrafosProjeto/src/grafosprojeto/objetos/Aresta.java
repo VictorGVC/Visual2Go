@@ -10,18 +10,27 @@ import javafx.scene.shape.Line;
 
 public class Aresta {
     
+    private Arrow linhapontiaguda;
     private Line linha;
     private int ID, valor;
     private char ID1, ID2;
 
-    public Aresta(int ID, Vertice v1, Vertice v2,char d,Pane p) {
-        int v1x,v2x,v1y,v2y;
+    public Aresta(int ID, Vertice v1, Vertice v2,boolean d,Pane p) {
         this.ID = ID;
         this.ID1 = v1.getID();
         this.ID2 = v2.getID();
-        if(d == 'd')
+        if(d)
         {
-            
+            this.linhapontiaguda = new Arrow();
+            linhapontiaguda.setStartX(v1.getCx());
+            linhapontiaguda.setStartY(v1.getCy());
+            linhapontiaguda.setEndX(v2.getCx());
+            linhapontiaguda.setEndY(v2.getCy());
+            p.getChildren().add(linhapontiaguda);
+            ObservableList<Node> aoba = FXCollections.observableArrayList(p.getChildren());
+            Comparator<Node> c = Comparator.comparing(Node::getTypeSelector);
+            Collections.sort(aoba,c.reversed());
+            p.getChildren().setAll(aoba);
         }
         else
         {   
@@ -32,6 +41,14 @@ public class Aresta {
             Collections.sort(aoba,c.reversed());
             p.getChildren().setAll(aoba);
         }  
+    }
+
+    public Arrow getLinhapontiaguda() {
+        return linhapontiaguda;
+    }
+
+    public void setLinhapontiaguda(Arrow linhapontiaguda) {
+        this.linhapontiaguda = linhapontiaguda;
     }
     
     public int getID() {

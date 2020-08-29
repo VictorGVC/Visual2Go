@@ -4,8 +4,6 @@ import grafosprojeto.objetos.Aresta;
 import grafosprojeto.objetos.Grafo;
 import grafosprojeto.objetos.Vertice;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -112,7 +110,7 @@ public class TelaPrincipalController implements Initializable {
             if(v.getID() == id2)
                 v2 = v;
         }
-        Aresta a = new Aresta(conta++,v1,v2,'g',pngrafo);
+        Aresta a = new Aresta(conta++,v1,v2,g.isDir(),pngrafo);
         atualizaMatriz(a);
     }
     
