@@ -4,6 +4,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
@@ -11,7 +12,7 @@ public class Vertice {
     
     private Label l;
     private AnchorPane ap;
-    private Circle bola, dist;
+    private Circle bola, dist,loop;
     private int grau, cx, cy;
     private char ID, status;
 
@@ -39,11 +40,24 @@ public class Vertice {
         bola = new Circle(10,10,10);
         bola.setFill(Paint.valueOf("0x00FFFF"));
         bola.setStroke(Paint.valueOf("0x000000"));
+        loop = new Circle(9, 20, 10);
+        loop.setFill(Color.TRANSPARENT);
+        loop.setStroke(Color.BLACK);
+        loop.setVisible(false);
         
         p.getChildren().add(dist);
-        ap.getChildren().addAll(bola,l);
+        ap.getChildren().addAll(loop,bola,l);
         p.getChildren().add(ap);
     }
+
+    public Circle getLoop() {
+        return loop;
+    }
+
+    public void setLoop(Circle loop) {
+        this.loop = loop;
+    }
+    
 
     public Label getL() {
         return l;

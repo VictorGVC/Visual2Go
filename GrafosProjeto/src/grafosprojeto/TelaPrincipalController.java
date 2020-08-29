@@ -18,6 +18,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.Line;
 
 public class TelaPrincipalController implements Initializable {
 
@@ -103,6 +104,8 @@ public class TelaPrincipalController implements Initializable {
     {
         Vertice v1 = null, v2 = null;
         
+        Aresta a = null;
+        
         for (Vertice v : g.getVlist()) 
         {
             if(v.getID() == id1)
@@ -110,7 +113,19 @@ public class TelaPrincipalController implements Initializable {
             if(v.getID() == id2)
                 v2 = v;
         }
-        Aresta a = new Aresta(conta++,v1,v2,g.isDir(),pngrafo);
+        if(v1 == v2)
+        {
+            v1.getLoop().setVisible(true);
+            a = new Aresta(conta++, v1);
+            if(g.isDir())
+            {
+                Line l1 = new Line(19, 16, 15, 23);
+                Line l2 = new Line(19, 16, 24, 22);
+                v1.getAp().getChildren().addAll(l2,l1);
+            }
+        }      
+        else
+            a = new Aresta(conta++,v1,v2,g.isDir(),pngrafo);
         atualizaMatriz(a);
     }
     

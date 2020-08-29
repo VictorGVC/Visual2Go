@@ -42,6 +42,12 @@ public class Aresta {
             p.getChildren().setAll(aoba);
         }  
     }
+    
+    public Aresta(int ID, Vertice v)
+    {
+        this.ID = ID;
+        this.ID1 = this.ID2 = v.getID();
+    }
 
     public Arrow getLinhapontiaguda() {
         return linhapontiaguda;
