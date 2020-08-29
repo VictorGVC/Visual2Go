@@ -1,5 +1,6 @@
 package grafosprojeto;
 
+import grafosprojeto.objetos.Aresta;
 import grafosprojeto.objetos.Grafo;
 import grafosprojeto.objetos.Vertice;
 import java.net.URL;
@@ -22,7 +23,7 @@ public class TelaPrincipalController implements Initializable {
 
     Grafo g;
     char cont;
-    int qtdeV = 0;
+    int qtdeV = 0,conta;
     
     @FXML
     private VBox pnPrincipal;
@@ -39,6 +40,7 @@ public class TelaPrincipalController implements Initializable {
         g = new Grafo(isDirecional());
         cont = 64;
         inicializaGp();
+        conta = 0;
     }    
     
     private void inicializaGp(){
@@ -73,63 +75,44 @@ public class TelaPrincipalController implements Initializable {
         EventHandler<MouseEvent> hover = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                v.getBola().setCursor(Cursor.HAND);
+                v.getAp().setCursor(Cursor.HAND);
             }
         };
         
         EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                Circle o = (Circle) event.getSource();
+                v.getAp().requestFocus();
+                
                 if(g.getStatus().isEmpty())
-                    g.setStatus("s/" + o.getId());
-                else
-                {
-                    String[] s = g.getStatus().split("/");
-                    criaVertice(s[1],o.getId());
-                }
-            }
-        };
-        
-        v.getBola().addEventHandler(MouseEvent.MOUSE_ENTERED, hover);
-        v.getBola().addEventHandler(MouseEvent.MOUSE_CLICKED, clicked);
-        
-    }
-    
-    private void lMouseEvents(Label l,Vertice v)
-    {
-        EventHandler<MouseEvent> clicked = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                if(g.getStatus().isEmpty())
-                {
                     g.setStatus("s/" + v.getID());
-                }
                 else
                 {
                     String[] s = g.getStatus().split("/");
-                    criaVertice(s[1],""+v.getID());
+                    g.setStatus("");
+                    criaVertice(s[1].charAt(0),v.getID());
                 }
             }
         };
-        
-        EventHandler<MouseEvent> hover = new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                l.setCursor(Cursor.HAND);
-            }
-        };
-        l.addEventHandler(MouseEvent.MOUSE_ENTERED, hover);
-        l.addEventHandler(MouseEvent.MOUSE_CLICKED, clicked);
+        v.getAp().addEventFilter(MouseEvent.MOUSE_ENTERED, hover);
+        v.getAp().addEventFilter(MouseEvent.MOUSE_CLICKED, clicked);
     }
     
-    private void criaVertice(String id1, String id2)
+    private void criaVertice(char id1, char id2)
     {
-        
+        Vertice v1 = null,v2 = null;
+        for (Vertice v : g.getVlist()) 
+        {
+            if(v.getID() == id1)
+                v1 = v;
+            if(v.getID() == id2)
+                v2 = v;
+        }
+        Aresta a = new Aresta(conta++,v1,v2,'g',pngrafo);
     }
     
     private void atualizaMatriz(char id){
-        
+        //g.getVlist().size();
         gpmatrizadj.add(new Label(""+id),qtdeV,0);
         gpmatrizadj.add(new Label(""+id),0,qtdeV);
         
@@ -140,31 +123,26 @@ public class TelaPrincipalController implements Initializable {
     private void addVertice(MouseEvent event) 
     {
         boolean vdd = true;
-        Vertice v = new Vertice((int)event.getX(),(int)event.getY(),pngrafo);
+        Vertice v = new Vertice((int)event.getX(),(int)event.getY(),pngrafo,++cont);
         
         for (Vertice vv : g.getVlist()) 
         {
-            if(vv.getDist().getBoundsInParent().intersects(v.getBola().getBoundsInParent()))
+            if(vv.getDist().getBoundsInParent().intersects(v.getAp().getBoundsInParent()))
                 vdd = false;
         }
         if(vdd && qtdeV < 10)
         {
-            Label l = new Label();
-            
             g.getVlist().add(v);
             mouseEvents(v);
-            v.setID(++cont);
+            v.setID(cont);
             qtdeV++;
             atualizaMatriz(cont);
-            l.setText(""+cont);
-            l.setLayoutX(event.getX()-4);
-            l.setLayoutY(event.getY()-9);
-            pngrafo.getChildren().add(l);
-            lMouseEvents(l,v);
         }
         else
         {
-            pngrafo.getChildren().removeAll(v.getBola(),v.getDist());
+            
+            cont--;
+            pngrafo.getChildren().removeAll(v.getAp(),v.getDist());
             v = null;
         }
     }

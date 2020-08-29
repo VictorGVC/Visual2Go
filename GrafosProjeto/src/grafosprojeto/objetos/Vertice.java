@@ -1,12 +1,16 @@
 package grafosprojeto.objetos;
 
 import javafx.scene.Cursor;
+import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 public class Vertice {
     
+    private Label l;
+    private AnchorPane ap;
     private Circle bola, dist;
     private int grau, cx, cy;
     private char ID, status;
@@ -15,18 +19,46 @@ public class Vertice {
         status = 'c';
     }
     
-    public Vertice(int x, int y, Pane p) {
+    public Vertice(int x, int y, Pane p,char ID) {
+        l = new Label();
+        l.setLayoutX(6);
+        l.setLayoutY(2);
+        l.setText(""+ID);
+        
+        ap = new AnchorPane();
+        ap.setMinSize(0, 0);
+        ap.setMaxSize(20, 20);
+        ap.setLayoutX(x-10);
+        ap.setLayoutY(y-10);
+        
         status = 'c';
         cx = x;
         cy = y;
         dist = new Circle(x,y,30);
-        bola = new Circle(x,y,10);
+        dist.setVisible(false);
+        bola = new Circle(10,10,10);
         bola.setFill(Paint.valueOf("0x00FFFF"));
         bola.setStroke(Paint.valueOf("0x000000"));
-        dist.setVisible(false);
-        p.getChildren().add(dist);
-        p.getChildren().add(bola);
         
+        p.getChildren().add(dist);
+        ap.getChildren().addAll(bola,l);
+        p.getChildren().add(ap);
+    }
+
+    public Label getL() {
+        return l;
+    }
+
+    public void setL(Label l) {
+        this.l = l;
+    }
+
+    public AnchorPane getAp() {
+        return ap;
+    }
+
+    public void setAp(AnchorPane ap) {
+        this.ap = ap;
     }
 
     public Circle getDist() {
