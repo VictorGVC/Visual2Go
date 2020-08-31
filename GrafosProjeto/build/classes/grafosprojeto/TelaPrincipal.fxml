@@ -1,22 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
-<VBox fx:id="pnPrincipal" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
+<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
    <children>
-      <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="365.0" prefWidth="750.0" style="-fx-background-color: lightgray;">
+      <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="365.0" prefWidth="750.0" style="-fx-background-color: lightgray;" />
+      <Pane prefHeight="335.0" prefWidth="750.0" style="-fx-background-color: gray;">
          <children>
-            <JFXButton layoutX="27.0" layoutY="326.0" text="X" />
-            <JFXButton layoutX="14.0" layoutY="301.0" text="Lixeira" />
-         </children></Pane>
-      <Pane prefHeight="235.0" prefWidth="750.0" style="-fx-background-color: gray;">
-         <children>
-            <GridPane fx:id="gpmatrizinc" layoutX="25.0" layoutY="24.0" prefHeight="185.0" prefWidth="325.0">
+            <Label layoutX="153.0" layoutY="12.0" text="Matriz de Incidência">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <GridPane fx:id="gpmatrizinc" layoutX="14.0" layoutY="25.0" prefHeight="285.0" prefWidth="438.0">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
                 <ColumnConstraints hgrow="SOMETIMES" />
@@ -27,7 +30,13 @@
                 <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <GridPane fx:id="gpmatrizadj" layoutX="402.0" layoutY="25.0" prefHeight="185.0" prefWidth="325.0">
+            <Line endX="448.0" endY="14.0" startX="448.0" startY="326.0" />
+            <Label layoutX="546.0" layoutY="12.0" text="Matriz de adjacência">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <GridPane fx:id="gpmatrizadj" layoutX="469.0" layoutY="25.0" prefHeight="285.0" prefWidth="317.0">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
                 <ColumnConstraints hgrow="SOMETIMES" />

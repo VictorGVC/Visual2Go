@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -47,15 +46,16 @@ public class TelaPrincipalController implements Initializable {
     
     private void inicializaGp(){
         
-        gpmatrizadj.setMinSize(325, 185);
-        //gpmatrizadj.setVgap(2); 
-        //gpmatrizadj.setHgap(2);
-        gpmatrizadj.setAlignment(Pos.CENTER_RIGHT);
+        //gpmatrizadj.setPrefSize(325, 185);
+        //gpmatrizadj.setMinSize(325, 185);
+        gpmatrizadj.setVgap(5); 
+        gpmatrizadj.setHgap(5);
+        //gpmatrizadj.setAlignment(Pos.CENTER_RIGHT);
         
-        gpmatrizinc.setMinSize(325, 185);
-        //gpmatrizadj.setVgap(2); 
-        //gpmatrizinc.setHgap(2);
-        gpmatrizinc.setAlignment(Pos.CENTER_LEFT);
+        //gpmatrizinc.setMinSize(325, 185);
+        gpmatrizinc.setVgap(5); 
+        gpmatrizinc.setHgap(5);
+        //gpmatrizinc.setAlignment(Pos.CENTER_LEFT);
     }
     
     private boolean isDirecional()
@@ -132,6 +132,9 @@ public class TelaPrincipalController implements Initializable {
     private void atualizaMatriz(Aresta a){
         
         Node n = null;
+        Label l = new Label();
+        
+        l.setPrefSize(30, 5);
         
         for (Node node : gpmatrizadj.getChildren()) {
             if(node instanceof Label && gpmatrizadj.getRowIndex(node) == a.getID1()-64 && gpmatrizadj.getColumnIndex(node) == a.getID2()-64)
@@ -148,25 +151,37 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizadj.add(new Label(""+1),a.getID2()-64,a.getID1()-64);
         
         for (int i = 1; i <= g.getVlist().size(); i++)
-            if(i != a.getID1()-64 && i != a.getID2()-64 )
-                gpmatrizinc.add(new Label(""+0),a.getID1()-64,i);
+            if(i != a.getID1()-64 && i != a.getID2()-64)
+                gpmatrizinc.add(new Label(""+0),qtdeInc,i);
                 
-        gpmatrizinc.add(new Label(a.getID1()+","+a.getID2()),qtdeInc,0);
+        l.setText(a.getID1()+","+a.getID2());
+        gpmatrizinc.add(l,qtdeInc,0);
         gpmatrizinc.add(new Label(""+1),qtdeInc,a.getID1()-64);
         gpmatrizinc.add(new Label(""+1),qtdeInc++,a.getID2()-64);
     }
     
     private void atualizaMatriz(char id){
         
-        gpmatrizadj.add(new Label(""+id),g.getVlist().size(),0);
-        gpmatrizadj.add(new Label(""+id),0,g.getVlist().size());
+        Label l1 = new Label();
+        Label l2 = new Label();
+        Label l3 = new Label();
+        
+        l1.setPrefSize(30, 5);
+        l2.setPrefSize(30, 5);
+        l3.setPrefSize(30, 5);
+        
+        l1.setText(""+id);
+        l2.setText(""+id);
+        gpmatrizadj.add(l1,g.getVlist().size(),0);
+        gpmatrizadj.add(l2,0,g.getVlist().size());
         
         for (int i = 1; i <= g.getVlist().size(); i++)
             gpmatrizadj.add(new Label(""+0),g.getVlist().size(),i);
         for (int i = 1; i <= g.getVlist().size(); i++)
             gpmatrizadj.add(new Label(""+0),i,g.getVlist().size());
         
-        gpmatrizinc.add(new Label(""+id),0,g.getVlist().size());
+        l3.setText(""+id);
+        gpmatrizinc.add(l3,0,g.getVlist().size());
     }
 
     @FXML
@@ -189,7 +204,6 @@ public class TelaPrincipalController implements Initializable {
         }
         else
         {
-            
             cont--;
             pngrafo.getChildren().removeAll(v.getAp(),v.getDist());
             v = null;
