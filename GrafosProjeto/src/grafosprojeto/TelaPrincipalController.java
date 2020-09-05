@@ -18,6 +18,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
+import javax.swing.JOptionPane;
 
 public class TelaPrincipalController implements Initializable {
 
@@ -34,15 +35,29 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private GridPane gpmatrizadj;
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        
-        g = new Grafo(isDirecional());
+    @Override  
+    public void initialize(URL url, ResourceBundle rb) 
+    {
+        g = new Grafo(isDirecional(),isValorado());
         cont = 64;
         inicializaGp();
         conta = 0;
         qtdeInc = 1;
     }    
+    
+    public boolean isValorado()
+    {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        ButtonType btsim = new ButtonType("Sim");
+        ButtonType btnao = new ButtonType("Não");
+        
+        a.getButtonTypes().setAll(btsim,btnao);
+        a.setTitle("Valorado?");
+        a.setContentText("É um grafo Valorado?");
+        if(a.showAndWait().get() == btsim)
+            return true;
+        return false;
+    }
     
     private void inicializaGp(){
         
@@ -103,8 +118,11 @@ public class TelaPrincipalController implements Initializable {
     private void criaAresta(char id1, char id2)
     {
         Vertice v1 = null, v2 = null;
-        
+        int valor = 1;
         Aresta a = null;
+        
+        if(g.isVal())
+            valor = Integer.parseInt(JOptionPane.showInputDialog("valor"));
         
         for (Vertice v : g.getVlist()) 
         {
@@ -123,9 +141,16 @@ public class TelaPrincipalController implements Initializable {
                 Line l2 = new Line(19, 16, 24, 22);
                 v1.getAp().getChildren().addAll(l2,l1);
             }
+            g.addMa(v1.getID()-65, v1.getID()-65, valor);
         }      
         else
+        {
             a = new Aresta(conta++,v1,v2,g.isDir(),pngrafo);
+            g.addMa(v1.getID()-65, v2.getID()-65, valor);
+            if(!g.isDir())
+                g.addMa(v2.getID()-65, v1.getID()-65, valor);
+        }
+            
         atualizaMatriz(a);
     }
     
