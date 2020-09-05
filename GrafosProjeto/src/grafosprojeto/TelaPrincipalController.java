@@ -1,10 +1,15 @@
 package grafosprojeto;
 
+import com.jfoenix.controls.JFXComboBox;
 import grafosprojeto.objetos.Aresta;
 import grafosprojeto.objetos.Grafo;
 import grafosprojeto.objetos.Vertice;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -31,9 +36,24 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private Pane pngrafo;
     @FXML
+    private JFXComboBox<String> cbMatrizes;
+    private Label lbQtdes;
+    @FXML
+    private Label lbSimples;
+    @FXML
+    private Label lbRegular;
+    @FXML
+    private Label lbCompleto;
+    @FXML
+    private Label lbMultigrafo;
+    @FXML
     private GridPane gpmatrizinc;
     @FXML
     private GridPane gpmatrizadj;
+    @FXML
+    private Label lbQtdeV;
+    @FXML
+    private Label lbQtdeA;
 
     @Override  
     public void initialize(URL url, ResourceBundle rb) 
@@ -43,8 +63,48 @@ public class TelaPrincipalController implements Initializable {
         inicializaGp();
         conta = 0;
         qtdeInc = 1;
+        listaMatrizaes();
+        esperaLista();
     }    
     
+    private void listaMatrizaes() {
+        
+        List<String> list = new ArrayList();
+        
+        list.add("Matriz de Adjacência");
+        list.add("Matriz de Incidência");
+        list.add("Lista de Adjacência");
+        
+        cbMatrizes.setItems(FXCollections.observableArrayList(list));
+    }
+    
+    private void esperaLista(){
+        
+        cbMatrizes.setOnAction(new EventHandler<ActionEvent>() {
+            
+            @Override
+            public void handle(ActionEvent event) {
+                
+                switch (cbMatrizes.getSelectionModel().getSelectedIndex()) {
+
+                    case 0:
+                        gpmatrizadj.setVisible(true);
+                        gpmatrizinc.setVisible(false);
+                        break;
+                    case 1:
+                        gpmatrizadj.setVisible(false);
+                        gpmatrizinc.setVisible(true);
+                        break;
+                    case 2:
+                        gpmatrizadj.setVisible(false);
+                        gpmatrizinc.setVisible(false);
+                        break;   
+                    default:
+                        break;
+                }
+            }
+        });
+    }
     public boolean isValorado()
     {
         Alert a = new Alert(Alert.AlertType.INFORMATION);
@@ -156,7 +216,7 @@ public class TelaPrincipalController implements Initializable {
             }
                 
         }
-            
+        lbQtdeA.setText("A = " + conta);    
         atualizaMatriz(a);
     }
     
@@ -232,6 +292,7 @@ public class TelaPrincipalController implements Initializable {
             mouseEvents(v);
             v.setID(cont);
             atualizaMatriz(cont);
+            lbQtdeV.setText("V = " + (cont - 64));
         }
         else
         {
