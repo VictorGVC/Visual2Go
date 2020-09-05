@@ -4,6 +4,7 @@ import com.jfoenix.controls.JFXComboBox;
 import grafosprojeto.objetos.Aresta;
 import grafosprojeto.objetos.Grafo;
 import grafosprojeto.objetos.Vertice;
+import grafosprojeto.utils.util;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -177,12 +178,10 @@ public class TelaPrincipalController implements Initializable {
     
     private void criaAresta(char id1, char id2)
     {
+        g.getMi().add(new ArrayList());
         Vertice v1 = null, v2 = null;
         int valor = 1;
-        Aresta a = null;
-        
-        if(g.isVal())
-            valor = Integer.parseInt(JOptionPane.showInputDialog("valor"));
+        Aresta a = null;  
         
         for (Vertice v : g.getVlist()) 
         {
@@ -191,6 +190,20 @@ public class TelaPrincipalController implements Initializable {
             if(v.getID() == id2)
                 v2 = v;
         }
+        
+        if(g.isVal())
+        {
+            valor = Integer.parseInt(JOptionPane.showInputDialog("valor"));
+            String s = util.pontoMedio(v1.getCx(), v1.getCy(), v2.getCx(), v2.getCy());
+            Label l = new Label(""+valor);
+            String []s1 = s.split("/");
+            l.setLayoutX(Integer.parseInt(s1[0]));
+            l.setLayoutY(Integer.parseInt(s1[1])+6);
+            pngrafo.getChildren().add(l);
+            if(v1 == v2)
+                l.setLayoutY(Integer.parseInt(s1[1])+20);
+        }
+        
         if(v1 == v2)
         {
             v1.getLoop().setVisible(true);
@@ -208,14 +221,17 @@ public class TelaPrincipalController implements Initializable {
         {
             a = new Aresta(conta++,v1,v2,g.isDir(),pngrafo);
             g.addMa(v1.getID()-65, v2.getID()-65, valor);
-            g.addMi(v1.getID()-65, -1*valor);
+            g.addMi(v2.getID()-65, valor);
             if(!g.isDir())
             {
                 g.addMa(v2.getID()-65, v1.getID()-65, valor);
-                g.addMi(v2.getID()-65, valor);
+                g.addMi(v1.getID()-65, valor);
             }
+            else
+                g.addMi(v1.getID()-65, -1*valor);
                 
         }
+        g.getAlist().add(a);
         lbQtdeA.setText("A = " + conta);    
         atualizaMatriz(a);
     }

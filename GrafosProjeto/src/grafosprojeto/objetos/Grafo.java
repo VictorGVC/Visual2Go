@@ -40,6 +40,14 @@ public class Grafo {
         mi = new ArrayList<>();
         la = new ArrayList<>();
     }
+
+    public List<ArrayList> getLa() {
+        return la;
+    }
+
+    public void setLa(List<ArrayList> la) {
+        this.la = la;
+    }
     
     public void addMa(int x,int y,int info)
     {
@@ -48,14 +56,10 @@ public class Grafo {
     
     public void addMi(int v, int valor)
     {
-        mi.add(new ArrayList());
-        for (int i = 0; i < 10; i++) 
-        {
-            if(v == i)
-                mi.get(alist.size()).add(valor);
-            else
+        if(mi.get(alist.size()).size() < 8)
+            for (int i = 0; i < 10; i++) 
                 mi.get(alist.size()).add(0);
-        }
+        mi.get(alist.size()).set(v, valor);
     }
 
     public List<ArrayList> getMi() {
