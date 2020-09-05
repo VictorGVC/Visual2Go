@@ -45,6 +45,18 @@ public class Grafo {
     {
         ma[x][y] = info;
     }
+    
+    public void addMi(int v, int valor)
+    {
+        mi.add(new ArrayList());
+        for (int i = 0; i < 10; i++) 
+        {
+            if(v == i)
+                mi.get(alist.size()).add(valor);
+            else
+                mi.get(alist.size()).add(0);
+        }
+    }
 
     public List<ArrayList> getMi() {
         return mi;

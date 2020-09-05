@@ -142,13 +142,19 @@ public class TelaPrincipalController implements Initializable {
                 v1.getAp().getChildren().addAll(l2,l1);
             }
             g.addMa(v1.getID()-65, v1.getID()-65, valor);
+            g.addMi(v1.getID()-65, valor);
         }      
         else
         {
             a = new Aresta(conta++,v1,v2,g.isDir(),pngrafo);
             g.addMa(v1.getID()-65, v2.getID()-65, valor);
+            g.addMi(v1.getID()-65, -1*valor);
             if(!g.isDir())
+            {
                 g.addMa(v2.getID()-65, v1.getID()-65, valor);
+                g.addMi(v2.getID()-65, valor);
+            }
+                
         }
             
         atualizaMatriz(a);
