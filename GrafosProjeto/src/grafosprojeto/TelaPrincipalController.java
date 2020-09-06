@@ -203,7 +203,6 @@ public class TelaPrincipalController implements Initializable {
             if(v1 == v2)
                 l.setLayoutY(Integer.parseInt(s1[1])+20);
         }
-        
         if(v1 == v2)
         {
             v1.getLoop().setVisible(true);
@@ -216,16 +215,19 @@ public class TelaPrincipalController implements Initializable {
             }
             g.addMa(v1.getID()-65, v1.getID()-65, valor);
             g.addMi(v1.getID()-65, valor);
+            g.addLa(v1, v1.getID()-65);
         }      
         else
         {
             a = new Aresta(conta++,v1,v2,g.isDir(),pngrafo);
             g.addMa(v1.getID()-65, v2.getID()-65, valor);
             g.addMi(v2.getID()-65, valor);
+            g.addLa(v2, v1.getID()-65);
             if(!g.isDir())
             {
                 g.addMa(v2.getID()-65, v1.getID()-65, valor);
                 g.addMi(v1.getID()-65, valor);
+                g.addLa(v1, v2.getID()-65);
             }
             else
                 g.addMi(v1.getID()-65, -1*valor);

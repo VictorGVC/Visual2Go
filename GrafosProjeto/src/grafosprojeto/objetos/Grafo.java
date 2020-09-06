@@ -1,6 +1,7 @@
 package grafosprojeto.objetos;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class Grafo {
@@ -19,6 +20,7 @@ public class Grafo {
         ma = new int [10][10];
         mi = new ArrayList<>();
         la = new ArrayList<>();
+        initLa();
     }
     
     public Grafo() {
@@ -28,6 +30,7 @@ public class Grafo {
         ma = new int [10][10];
         mi = new ArrayList<>();
         la = new ArrayList<>();
+        initLa();
     }
 
     public Grafo(boolean dir, boolean val) {
@@ -39,6 +42,19 @@ public class Grafo {
         ma = new int [10][10];
         mi = new ArrayList<>();
         la = new ArrayList<>();
+        initLa();
+    }
+    
+    public void initLa()
+    {
+        for (int i = 0; i < 10; i++) 
+            la.add(new ArrayList());
+    }
+    
+    public void addLa(Vertice v,int id)
+    {
+        la.get(id).add(v);
+        la.get(id).sort(Comparator.comparing(Vertice::getID));
     }
 
     public List<ArrayList> getLa() {
