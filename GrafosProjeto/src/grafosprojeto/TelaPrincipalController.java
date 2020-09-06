@@ -14,6 +14,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
@@ -38,7 +39,6 @@ public class TelaPrincipalController implements Initializable {
     private Pane pngrafo;
     @FXML
     private JFXComboBox<String> cbMatrizes;
-    private Label lbQtdes;
     @FXML
     private Label lbSimples;
     @FXML
@@ -57,8 +57,8 @@ public class TelaPrincipalController implements Initializable {
     private Label lbQtdeA;
 
     @Override  
-    public void initialize(URL url, ResourceBundle rb) 
-    {
+    public void initialize(URL url, ResourceBundle rb) {
+        
         g = new Grafo(isDirecional(),isValorado());
         cont = 64;
         inicializaGp();
@@ -68,8 +68,8 @@ public class TelaPrincipalController implements Initializable {
         esperaLista();
     }
     
-    private boolean isDirecional()
-    {
+    private boolean isDirecional() {
+        
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         ButtonType btsim = new ButtonType("Sim");
         ButtonType btnao = new ButtonType("Não");
@@ -82,8 +82,8 @@ public class TelaPrincipalController implements Initializable {
         return false;
     }
     
-    public boolean isValorado()
-    {
+    public boolean isValorado() {
+        
         Alert a = new Alert(Alert.AlertType.INFORMATION);
         ButtonType btsim = new ButtonType("Sim");
         ButtonType btnao = new ButtonType("Não");
@@ -107,7 +107,7 @@ public class TelaPrincipalController implements Initializable {
         cbMatrizes.setItems(FXCollections.observableArrayList(list));
     }
     
-    private void esperaLista(){
+    private void esperaLista() {
         
         cbMatrizes.setOnAction(new EventHandler<ActionEvent>() {
             
@@ -135,21 +135,18 @@ public class TelaPrincipalController implements Initializable {
         });
     }
     
-    private void inicializaGp(){
+    private void inicializaGp() {
         
-        //gpmatrizadj.setPrefSize(325, 185);
-        //gpmatrizadj.setMinSize(325, 185);
         gpmatrizadj.setVgap(5); 
         gpmatrizadj.setHgap(5);
-        //gpmatrizadj.setAlignment(Pos.CENTER_RIGHT);
+        gpmatrizadj.setAlignment(Pos.CENTER_RIGHT);
         
-        //gpmatrizinc.setMinSize(325, 185);
         gpmatrizinc.setVgap(5); 
         gpmatrizinc.setHgap(5);
-        //gpmatrizinc.setAlignment(Pos.CENTER_LEFT);
+        gpmatrizinc.setAlignment(Pos.CENTER_LEFT);
     }
     
-    private void atualizaMatriz(Aresta a){
+    private void atualizaMatriz(Aresta a) {
         
         Node n = null;
         Label l = new Label();
@@ -180,7 +177,7 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizinc.add(new Label(""+1),qtdeInc++,a.getID2()-64);
     }
     
-    private void atualizaMatriz(char id){
+    private void atualizaMatriz(char id) {
         
         Label l1 = new Label();
         Label l2 = new Label();
@@ -204,7 +201,7 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizinc.add(l3,0,g.getVlist().size());
     }
     
-    private void verificaTipo(){
+    private void verificaTipo() {
         
         int i, j, qtdeV = cont - 64, grau;
         boolean flag = true;
@@ -246,8 +243,8 @@ public class TelaPrincipalController implements Initializable {
             lbCompleto.setText("Completo? Não");
     }
     
-    private void mouseEvents(Vertice v)
-    {
+    private void mouseEvents(Vertice v) {
+        
         EventHandler<MouseEvent> hover = new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -262,8 +259,8 @@ public class TelaPrincipalController implements Initializable {
                 
                 if(g.getStatus().isEmpty())
                     g.setStatus("s/" + v.getID());
-                else
-                {
+                else{
+                    
                     String[] s = g.getStatus().split("/");
                     g.setStatus("");
                     criaAresta(s[1].charAt(0),v.getID());
@@ -274,23 +271,22 @@ public class TelaPrincipalController implements Initializable {
         v.getAp().addEventFilter(MouseEvent.MOUSE_CLICKED, clicked);
     }
     
-    private void criaAresta(char id1, char id2)
-    {
+    private void criaAresta(char id1, char id2) {
+        
         g.getMi().add(new ArrayList());
         Vertice v1 = null, v2 = null;
         int valor = 1;
         Aresta a = null;  
         
-        for (Vertice v : g.getVlist()) 
-        {
+        for (Vertice v : g.getVlist()) {
+            
             if(v.getID() == id1)
                 v1 = v;
             if(v.getID() == id2)
                 v2 = v;
         }
-        
-        if(g.isVal())
-        {
+        if(g.isVal()){
+            
             valor = Integer.parseInt(JOptionPane.showInputDialog("valor"));
             String s = util.pontoMedio(v1.getCx(), v1.getCy(), v2.getCx(), v2.getCy());
             Label l = new Label(""+valor);
@@ -301,12 +297,12 @@ public class TelaPrincipalController implements Initializable {
             if(v1 == v2)
                 l.setLayoutY(Integer.parseInt(s1[1])+20);
         }
-        if(v1 == v2)
-        {
+        if(v1 == v2){
+            
             v1.getLoop().setVisible(true);
             a = new Aresta(conta++, v1);
-            if(g.isDir())
-            {
+            if(g.isDir()){
+                
                 Line l1 = new Line(19, 16, 15, 23);
                 Line l2 = new Line(19, 16, 24, 22);
                 v1.getAp().getChildren().addAll(l2,l1);
@@ -315,14 +311,14 @@ public class TelaPrincipalController implements Initializable {
             g.addMi(v1.getID()-65, valor);
             g.addLa(v1, v1.getID()-65);
         }      
-        else
-        {
+        else{
+            
             a = new Aresta(conta++,v1,v2,g.isDir(),pngrafo);
             g.addMa(v1.getID()-65, v2.getID()-65, valor);
             g.addMi(v2.getID()-65, valor);
             g.addLa(v2, v1.getID()-65);
-            if(!g.isDir())
-            {
+            if(!g.isDir()){
+                
                 g.addMa(v2.getID()-65, v1.getID()-65, valor);
                 g.addMi(v1.getID()-65, valor);
                 g.addLa(v1, v2.getID()-65);
@@ -338,18 +334,16 @@ public class TelaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void addVertice(MouseEvent event) 
-    {
+    private void addVertice(MouseEvent event) {
+        
         boolean vdd = true;
         Vertice v = new Vertice((int)event.getX(),(int)event.getY(),pngrafo,++cont);
         
-        for (Vertice vv : g.getVlist()) 
-        {
+        for (Vertice vv : g.getVlist())
             if(vv.getDist().getBoundsInParent().intersects(v.getAp().getBoundsInParent()))
                 vdd = false;
-        }
-        if(vdd && g.getVlist().size() < 10)
-        {
+        if(vdd && g.getVlist().size() < 10){
+            
             g.getVlist().add(v);
             mouseEvents(v);
             v.setID(cont);
@@ -357,8 +351,8 @@ public class TelaPrincipalController implements Initializable {
             atualizaMatriz(cont);
             lbQtdeV.setText("V = " + (cont - 64));
         }
-        else
-        {
+        else{
+            
             cont--;
             pngrafo.getChildren().removeAll(v.getAp(),v.getDist());
             v = null;
