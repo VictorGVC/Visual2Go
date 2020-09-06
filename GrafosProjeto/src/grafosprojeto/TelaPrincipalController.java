@@ -66,6 +66,34 @@ public class TelaPrincipalController implements Initializable {
         qtdeInc = 1;
         listaMatrizaes();
         esperaLista();
+    }
+    
+    private boolean isDirecional()
+    {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        ButtonType btsim = new ButtonType("Sim");
+        ButtonType btnao = new ButtonType("Não");
+        
+        a.getButtonTypes().setAll(btsim,btnao);
+        a.setTitle("Direcional?");
+        a.setContentText("É um grafo direcional?");
+        if(a.showAndWait().get() == btsim)
+            return true;
+        return false;
+    }
+    
+    public boolean isValorado()
+    {
+        Alert a = new Alert(Alert.AlertType.INFORMATION);
+        ButtonType btsim = new ButtonType("Sim");
+        ButtonType btnao = new ButtonType("Não");
+        
+        a.getButtonTypes().setAll(btsim,btnao);
+        a.setTitle("Valorado?");
+        a.setContentText("É um grafo valorado?");
+        if(a.showAndWait().get() == btsim)
+            return true;
+        return false;
     }    
     
     private void listaMatrizaes() {
@@ -106,19 +134,6 @@ public class TelaPrincipalController implements Initializable {
             }
         });
     }
-    public boolean isValorado()
-    {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        ButtonType btsim = new ButtonType("Sim");
-        ButtonType btnao = new ButtonType("Não");
-        
-        a.getButtonTypes().setAll(btsim,btnao);
-        a.setTitle("Valorado?");
-        a.setContentText("É um grafo Valorado?");
-        if(a.showAndWait().get() == btsim)
-            return true;
-        return false;
-    }
     
     private void inicializaGp(){
         
@@ -134,18 +149,101 @@ public class TelaPrincipalController implements Initializable {
         //gpmatrizinc.setAlignment(Pos.CENTER_LEFT);
     }
     
-    private boolean isDirecional()
-    {
-        Alert a = new Alert(Alert.AlertType.INFORMATION);
-        ButtonType btsim = new ButtonType("Sim");
-        ButtonType btnao = new ButtonType("Não");
+    private void atualizaMatriz(Aresta a){
         
-        a.getButtonTypes().setAll(btsim,btnao);
-        a.setTitle("Direcional?");
-        a.setContentText("É um grafo direcional?");
-        if(a.showAndWait().get() == btsim)
-            return true;
-        return false;
+        Node n = null;
+        Label l = new Label();
+        
+        l.setPrefSize(30, 5);
+        
+        for (Node node : gpmatrizadj.getChildren()) {
+            if(node instanceof Label && gpmatrizadj.getRowIndex(node) == a.getID1()-64 && gpmatrizadj.getColumnIndex(node) == a.getID2()-64)
+                n = node;
+        }
+        gpmatrizadj.getChildren().remove(n);
+        for (Node node : gpmatrizadj.getChildren()) {
+            if(node instanceof Label && gpmatrizadj.getRowIndex(node) == a.getID2()-64 && gpmatrizadj.getColumnIndex(node) == a.getID1()-64)
+                n = node;
+        }
+        gpmatrizadj.getChildren().remove(n);
+        
+        gpmatrizadj.add(new Label(""+1),a.getID1()-64,a.getID2()-64);
+        gpmatrizadj.add(new Label(""+1),a.getID2()-64,a.getID1()-64);
+        
+        for (int i = 1; i <= g.getVlist().size(); i++)
+            if(i != a.getID1()-64 && i != a.getID2()-64)
+                gpmatrizinc.add(new Label(""+0),qtdeInc,i);
+                
+        l.setText(a.getID1()+","+a.getID2());
+        gpmatrizinc.add(l,qtdeInc,0);
+        gpmatrizinc.add(new Label(""+1),qtdeInc,a.getID1()-64);
+        gpmatrizinc.add(new Label(""+1),qtdeInc++,a.getID2()-64);
+    }
+    
+    private void atualizaMatriz(char id){
+        
+        Label l1 = new Label();
+        Label l2 = new Label();
+        Label l3 = new Label();
+        
+        l1.setPrefSize(30, 5);
+        l2.setPrefSize(30, 5);
+        l3.setPrefSize(30, 5);
+        
+        l1.setText(""+id);
+        l2.setText(""+id);
+        gpmatrizadj.add(l1,g.getVlist().size(),0);
+        gpmatrizadj.add(l2,0,g.getVlist().size());
+        
+        for (int i = 1; i <= g.getVlist().size(); i++)
+            gpmatrizadj.add(new Label(""+0),g.getVlist().size(),i);
+        for (int i = 1; i <= g.getVlist().size(); i++)
+            gpmatrizadj.add(new Label(""+0),i,g.getVlist().size());
+        
+        l3.setText(""+id);
+        gpmatrizinc.add(l3,0,g.getVlist().size());
+    }
+    
+    private void verificaTipo(){
+        
+        int i, j, qtdeV = cont - 64, grau;
+        boolean flag = true;
+        Vertice auxV;
+        Aresta auxA, auxA2;
+        
+        lbSimples.setText("Simples? Sim");
+        lbMultigrafo.setText("Multigrafo? Não");
+        for (i = 0 ; i < conta && flag; i++) {
+            
+            auxA = g.getAlist().get(i);
+            for (j = i + 1 ; j < conta && flag; j++) {
+                
+                auxA2 = g.getAlist().get(j);
+                if(auxA.getID1() == auxA2.getID2() && auxA.getID2() == auxA2.getID1()){
+                    
+                    lbSimples.setText("Simples? Não");
+                    lbMultigrafo.setText("Multigrafo? Sim");
+                    flag = false;
+                }
+            }
+        }
+        
+        flag = true;
+        grau = g.getVlist().get(0).getGrau();
+        for (i = 1 ; i < qtdeV && flag; i++) {
+            
+            if(grau != g.getVlist().get(i).getGrau())
+                flag = false;
+        }
+        if(flag)
+            lbRegular.setText("Regular? Sim");
+        else        
+            lbRegular.setText("Regular? Não");
+        
+        if(qtdeV * (qtdeV - 1) / 2 == conta)
+            lbCompleto.setText("Completo? Sim");
+        else
+            lbCompleto.setText("Completo? Não");
     }
     
     private void mouseEvents(Vertice v)
@@ -234,63 +332,9 @@ public class TelaPrincipalController implements Initializable {
                 
         }
         g.getAlist().add(a);
-        lbQtdeA.setText("A = " + conta);    
+        lbQtdeA.setText("A = " + conta);
+        verificaTipo();
         atualizaMatriz(a);
-    }
-    
-    private void atualizaMatriz(Aresta a){
-        
-        Node n = null;
-        Label l = new Label();
-        
-        l.setPrefSize(30, 5);
-        
-        for (Node node : gpmatrizadj.getChildren()) {
-            if(node instanceof Label && gpmatrizadj.getRowIndex(node) == a.getID1()-64 && gpmatrizadj.getColumnIndex(node) == a.getID2()-64)
-                n = node;
-        }
-        gpmatrizadj.getChildren().remove(n);
-        for (Node node : gpmatrizadj.getChildren()) {
-            if(node instanceof Label && gpmatrizadj.getRowIndex(node) == a.getID2()-64 && gpmatrizadj.getColumnIndex(node) == a.getID1()-64)
-                n = node;
-        }
-        gpmatrizadj.getChildren().remove(n);
-        
-        gpmatrizadj.add(new Label(""+1),a.getID1()-64,a.getID2()-64);
-        gpmatrizadj.add(new Label(""+1),a.getID2()-64,a.getID1()-64);
-        
-        for (int i = 1; i <= g.getVlist().size(); i++)
-            if(i != a.getID1()-64 && i != a.getID2()-64)
-                gpmatrizinc.add(new Label(""+0),qtdeInc,i);
-                
-        l.setText(a.getID1()+","+a.getID2());
-        gpmatrizinc.add(l,qtdeInc,0);
-        gpmatrizinc.add(new Label(""+1),qtdeInc,a.getID1()-64);
-        gpmatrizinc.add(new Label(""+1),qtdeInc++,a.getID2()-64);
-    }
-    
-    private void atualizaMatriz(char id){
-        
-        Label l1 = new Label();
-        Label l2 = new Label();
-        Label l3 = new Label();
-        
-        l1.setPrefSize(30, 5);
-        l2.setPrefSize(30, 5);
-        l3.setPrefSize(30, 5);
-        
-        l1.setText(""+id);
-        l2.setText(""+id);
-        gpmatrizadj.add(l1,g.getVlist().size(),0);
-        gpmatrizadj.add(l2,0,g.getVlist().size());
-        
-        for (int i = 1; i <= g.getVlist().size(); i++)
-            gpmatrizadj.add(new Label(""+0),g.getVlist().size(),i);
-        for (int i = 1; i <= g.getVlist().size(); i++)
-            gpmatrizadj.add(new Label(""+0),i,g.getVlist().size());
-        
-        l3.setText(""+id);
-        gpmatrizinc.add(l3,0,g.getVlist().size());
     }
 
     @FXML
@@ -309,6 +353,7 @@ public class TelaPrincipalController implements Initializable {
             g.getVlist().add(v);
             mouseEvents(v);
             v.setID(cont);
+            verificaTipo();
             atualizaMatriz(cont);
             lbQtdeV.setText("V = " + (cont - 64));
         }
