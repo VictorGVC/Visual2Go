@@ -69,6 +69,10 @@ public class Grafo {
     {
         ma[x][y] = info;
     }
+
+    public int[][] getMa() {
+        return ma;
+    }
     
     public void addMi(int v, int valor)
     {

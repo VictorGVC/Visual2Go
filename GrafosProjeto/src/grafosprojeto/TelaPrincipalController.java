@@ -146,26 +146,47 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizinc.setAlignment(Pos.CENTER_LEFT);
     }
     
-    private void atualizaMatriz(Aresta a) {
+    private void atualizaGpMa(Aresta a){
         
-        Node n = null;
+        int i, j, k ,l;
+        int [][] mat = g.getMa();
+        
+        if(a == null)
+            for (i = 1, k = 0 ; i <= g.getVlist().size() ; i++)
+                for (j = 1, l = 0 ; j <= g.getVlist().size() ; j++) 
+                    gpmatrizadj.add(new Label("" + mat[k][l]),j,i);
+        else{
+            
+            Node n = null;
+            
+            i = a.getID2() - 64;
+            j = a.getID1() - 64;
+            k = i - 1;
+            l = j - 1;
+            
+            for (Node node : gpmatrizadj.getChildren()) {
+                if(node instanceof Label && gpmatrizadj.getRowIndex(node) == j && gpmatrizadj.getColumnIndex(node) == i)
+                    n = node;
+            }
+            gpmatrizadj.getChildren().remove(n);
+            for (Node node : gpmatrizadj.getChildren()) {
+                if(node instanceof Label && gpmatrizadj.getRowIndex(node) == i && gpmatrizadj.getColumnIndex(node) == j)
+                    n = node;
+            }
+            gpmatrizadj.getChildren().remove(n);
+            
+            gpmatrizadj.add(new Label("" + mat[k][l]),j,i);
+            gpmatrizadj.add(new Label("" + mat[k][l]),i,j);
+        }
+    }
+    
+    private void atualizaGp(Aresta a) {
+        
+        atualizaGpMa(a);
+        
         Label l = new Label();
         
         l.setPrefSize(30, 5);
-        
-        for (Node node : gpmatrizadj.getChildren()) {
-            if(node instanceof Label && gpmatrizadj.getRowIndex(node) == a.getID1()-64 && gpmatrizadj.getColumnIndex(node) == a.getID2()-64)
-                n = node;
-        }
-        gpmatrizadj.getChildren().remove(n);
-        for (Node node : gpmatrizadj.getChildren()) {
-            if(node instanceof Label && gpmatrizadj.getRowIndex(node) == a.getID2()-64 && gpmatrizadj.getColumnIndex(node) == a.getID1()-64)
-                n = node;
-        }
-        gpmatrizadj.getChildren().remove(n);
-        
-        gpmatrizadj.add(new Label(""+1),a.getID1()-64,a.getID2()-64);
-        gpmatrizadj.add(new Label(""+1),a.getID2()-64,a.getID1()-64);
         
         for (int i = 1; i <= g.getVlist().size(); i++)
             if(i != a.getID1()-64 && i != a.getID2()-64)
@@ -177,7 +198,7 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizinc.add(new Label(""+1),qtdeInc++,a.getID2()-64);
     }
     
-    private void atualizaMatriz(char id) {
+    private void addVerticeMatriz(char id) {
         
         Label l1 = new Label();
         Label l2 = new Label();
@@ -191,11 +212,7 @@ public class TelaPrincipalController implements Initializable {
         l2.setText(""+id);
         gpmatrizadj.add(l1,g.getVlist().size(),0);
         gpmatrizadj.add(l2,0,g.getVlist().size());
-        
-        for (int i = 1; i <= g.getVlist().size(); i++)
-            gpmatrizadj.add(new Label(""+0),g.getVlist().size(),i);
-        for (int i = 1; i <= g.getVlist().size(); i++)
-            gpmatrizadj.add(new Label(""+0),i,g.getVlist().size());
+        atualizaGpMa(null);
         
         l3.setText(""+id);
         gpmatrizinc.add(l3,0,g.getVlist().size());
@@ -205,7 +222,6 @@ public class TelaPrincipalController implements Initializable {
         
         int i, j, qtdeV = cont - 64, grau;
         boolean flag = true;
-        Vertice auxV;
         Aresta auxA, auxA2;
         
         lbSimples.setText("Simples? Sim");
@@ -328,9 +344,9 @@ public class TelaPrincipalController implements Initializable {
                 
         }
         g.getAlist().add(a);
-        lbQtdeA.setText("A = " + conta);
         verificaTipo();
-        atualizaMatriz(a);
+        lbQtdeA.setText("A = " + conta);
+        atualizaGp(a);
     }
 
     @FXML
@@ -348,8 +364,8 @@ public class TelaPrincipalController implements Initializable {
             mouseEvents(v);
             v.setID(cont);
             verificaTipo();
-            atualizaMatriz(cont);
             lbQtdeV.setText("V = " + (cont - 64));
+            addVerticeMatriz(cont);
         }
         else{
             

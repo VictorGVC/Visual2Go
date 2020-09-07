@@ -25,7 +25,7 @@
       </HBox>
       <Pane prefHeight="335.0" prefWidth="750.0" style="-fx-background-color: gray;">
          <children>
-            <GridPane fx:id="gpmatrizinc" layoutX="25.0" prefHeight="335.0" prefWidth="750.0" visible="false">
+            <GridPane fx:id="gpmatrizinc" layoutX="25.0" layoutY="25.0" prefHeight="270.0" prefWidth="750.0" visible="false">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
                 <ColumnConstraints hgrow="SOMETIMES" />
@@ -36,7 +36,7 @@
                 <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <GridPane fx:id="gpmatrizadj" layoutX="25.0" prefHeight="335.0" prefWidth="750.0" visible="false">
+            <GridPane fx:id="gpmatrizadj" layoutX="25.0" layoutY="25.0" prefHeight="270.0" prefWidth="750.0" visible="false">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
                 <ColumnConstraints hgrow="SOMETIMES" />
