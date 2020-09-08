@@ -10,6 +10,7 @@ public class Grafo {
     private List<Aresta> alist;
     private String tipo, status;
     private boolean dir, val;
+    private boolean [] gstatus;
     private int ma [][];
     private List<ArrayList> mi;
     private List<ArrayList> la;
@@ -21,6 +22,7 @@ public class Grafo {
         mi = new ArrayList<>();
         la = new ArrayList<>();
         initLa();
+        gstatus = new boolean[4];
     }
     
     public Grafo() {
@@ -31,6 +33,7 @@ public class Grafo {
         mi = new ArrayList<>();
         la = new ArrayList<>();
         initLa();
+        gstatus = new boolean[4];
     }
 
     public Grafo(boolean dir, boolean val) {
@@ -43,12 +46,53 @@ public class Grafo {
         mi = new ArrayList<>();
         la = new ArrayList<>();
         initLa();
+        gstatus = new boolean[4];
     }
     
     public void initLa()
     {
         for (int i = 0; i < 10; i++) 
             la.add(new ArrayList());
+    }
+    
+    public boolean isSimples()
+    {
+        return gstatus[0];
+    }
+    
+    public boolean isRegular()
+    {
+        return gstatus[1];
+    }
+    
+    public boolean isCompleto()
+    {
+        return gstatus[2];
+    }
+    
+    public boolean isMultigrafo()
+    {
+        return gstatus[3];
+    }
+    
+    public void setSimples(boolean b)
+    {
+        gstatus[0] = b;
+    }
+    
+    public void setRegular(boolean b)
+    {
+        gstatus[1] = b;
+    }
+    
+    public void setCompleto(boolean b)
+    {
+        gstatus[2] = b;
+    }
+    
+    public void setMultigrafo(boolean b)
+    {
+        gstatus[3] = b;
     }
     
     public void addLa(Vertice v,int id)

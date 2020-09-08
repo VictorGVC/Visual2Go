@@ -117,8 +117,9 @@ public class TelaPrincipalController implements Initializable {
                 switch (cbMatrizes.getSelectionModel().getSelectedIndex()) {
 
                     case 0:
-                        gpmatrizadj.setVisible(true);
-                        gpmatrizinc.setVisible(false);
+                        if(!g.isMultigrafo())
+                            gpmatrizadj.setVisible(true);
+                            gpmatrizinc.setVisible(false);
                         break;
                     case 1:
                         gpmatrizadj.setVisible(false);
@@ -225,7 +226,9 @@ public class TelaPrincipalController implements Initializable {
         Aresta auxA, auxA2;
         
         lbSimples.setText("Simples? Sim");
+        g.setSimples(true);
         lbMultigrafo.setText("Multigrafo? Não");
+        g.setMultigrafo(false);
         for (i = 0 ; i < conta && flag; i++) {
             
             auxA = g.getAlist().get(i);
@@ -235,7 +238,9 @@ public class TelaPrincipalController implements Initializable {
                 if(auxA.getID1() == auxA2.getID2() && auxA.getID2() == auxA2.getID1()){
                     
                     lbSimples.setText("Simples? Não");
+                    g.setSimples(false);
                     lbMultigrafo.setText("Multigrafo? Sim");
+                    g.setMultigrafo(true);
                     flag = false;
                 }
             }
@@ -243,20 +248,32 @@ public class TelaPrincipalController implements Initializable {
         
         flag = true;
         grau = g.getVlist().get(0).getGrau();
-        for (i = 1 ; i < qtdeV && flag; i++) {
-            
+        for (i = 1 ; i < qtdeV && flag; i++) 
+        {
             if(grau != g.getVlist().get(i).getGrau())
                 flag = false;
         }
         if(flag)
+        {
             lbRegular.setText("Regular? Sim");
-        else        
+            g.setRegular(true);
+        } 
+        else      
+        {
             lbRegular.setText("Regular? Não");
-        
+            g.setRegular(false);
+        }
         if(qtdeV * (qtdeV - 1) / 2 == conta)
+        {
             lbCompleto.setText("Completo? Sim");
+            g.setCompleto(true);
+        }
         else
+        {
             lbCompleto.setText("Completo? Não");
+            g.setCompleto(false);
+        }
+            
     }
     
     private void mouseEvents(Vertice v) {
@@ -301,6 +318,9 @@ public class TelaPrincipalController implements Initializable {
             if(v.getID() == id2)
                 v2 = v;
         }
+        
+        v1.setGrau(v1.getGrau() + 1);
+        v2.setGrau(v2.getGrau() + 1);
         if(g.isVal()){
             
             valor = Integer.parseInt(JOptionPane.showInputDialog("valor"));
