@@ -13,7 +13,7 @@ public class Grafo {
     private boolean [] gstatus;
     private int ma [][];
     private List<ArrayList> mi;
-    private List<ArrayList> la;
+    private List<ArrayList<Vertice>> la;
 
     public Grafo(String tipo, boolean dir) {
         this.tipo = tipo;
@@ -52,7 +52,7 @@ public class Grafo {
     public void initLa()
     {
         for (int i = 0; i < 10; i++) 
-            la.add(new ArrayList());
+            la.add(new ArrayList<Vertice>());
     }
     
     public boolean isSimples()
@@ -101,11 +101,11 @@ public class Grafo {
         la.get(id).sort(Comparator.comparing(Vertice::getID));
     }
 
-    public List<ArrayList> getLa() {
+    public List<ArrayList<Vertice>> getLa() {
         return la;
     }
 
-    public void setLa(List<ArrayList> la) {
+    public void setLa(List<ArrayList<Vertice>> la) {
         this.la = la;
     }
     

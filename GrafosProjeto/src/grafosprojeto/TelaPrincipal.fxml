@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -47,6 +48,7 @@
                 <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
+            <JFXTextArea fx:id="taLista" editable="false" focusColor="BLACK" prefHeight="315.0" prefWidth="800.0" unFocusColor="BLACK" />
          </children></Pane>
    </children>
 </VBox>

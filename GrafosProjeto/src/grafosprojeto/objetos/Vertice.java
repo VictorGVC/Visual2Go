@@ -1,6 +1,5 @@
 package grafosprojeto.objetos;
 
-import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;

@@ -1,6 +1,7 @@
 package grafosprojeto;
 
 import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextArea;
 import grafosprojeto.objetos.Aresta;
 import grafosprojeto.objetos.Grafo;
 import grafosprojeto.objetos.Vertice;
@@ -51,6 +52,8 @@ public class TelaPrincipalController implements Initializable {
     private GridPane gpmatrizinc;
     @FXML
     private GridPane gpmatrizadj;
+    @FXML
+    private JFXTextArea taLista;
     @FXML
     private Label lbQtdeV;
     @FXML
@@ -120,14 +123,17 @@ public class TelaPrincipalController implements Initializable {
                         if(!g.isMultigrafo())
                             gpmatrizadj.setVisible(true);
                             gpmatrizinc.setVisible(false);
+                            taLista.setVisible(false);
                         break;
                     case 1:
                         gpmatrizadj.setVisible(false);
                         gpmatrizinc.setVisible(true);
+                        taLista.setVisible(false);
                         break;
                     case 2:
                         gpmatrizadj.setVisible(false);
                         gpmatrizinc.setVisible(false);
+                        taLista.setVisible(true);
                         break;   
                     default:
                         break;
@@ -181,22 +187,44 @@ public class TelaPrincipalController implements Initializable {
         }
     }
     
-    private void atualizaGp(Aresta a) {
+    
+    private void atualizaGpMi(Aresta a) {
         
-        atualizaGpMa(a);
-        
+        List<ArrayList> mi = g.getMi();
         Label l = new Label();
         
         l.setPrefSize(30, 5);
-        
-        for (int i = 1; i <= g.getVlist().size(); i++)
-            if(i != a.getID1()-64 && i != a.getID2()-64)
-                gpmatrizinc.add(new Label(""+0),qtdeInc,i);
-                
         l.setText(a.getID1()+","+a.getID2());
         gpmatrizinc.add(l,qtdeInc,0);
-        gpmatrizinc.add(new Label(""+1),qtdeInc,a.getID1()-64);
-        gpmatrizinc.add(new Label(""+1),qtdeInc++,a.getID2()-64);
+        
+        for (int i = 0; i < g.getAlist().size(); i++)
+            for (int j = 0; j < g.getVlist().size(); j++)
+                gpmatrizinc.add(new Label("" + mi.get(i).get(j)),i+1,j+1);
+    }
+    
+    private void atualizaLista() {
+        
+        String linha = "";
+        List<ArrayList<Vertice>> list = g.getLa();
+        
+        for (int i = 0 ; i < list.size() ; i++) {
+            
+            for (int j = 0 ; j < list.get(i).size() ; j++) {
+                
+                linha += list.get(i).get(j).getID();
+                if(j < list.get(i).size() - 1)
+                    linha += " -> ";
+            }
+            linha += "\n\n";
+        }
+        taLista.setText(linha);
+    }
+    
+    private void atualizaRep(Aresta a) {
+        
+        atualizaGpMa(a);
+        atualizaGpMi(a);
+        atualizaLista();
     }
     
     private void addVerticeMatriz(char id) {
@@ -366,7 +394,7 @@ public class TelaPrincipalController implements Initializable {
         g.getAlist().add(a);
         verificaTipo();
         lbQtdeA.setText("A = " + conta);
-        atualizaGp(a);
+        atualizaRep(a);
     }
 
     @FXML
