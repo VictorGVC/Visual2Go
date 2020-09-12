@@ -195,7 +195,7 @@ public class TelaPrincipalController implements Initializable {
         
         l.setPrefSize(30, 5);
         l.setText(a.getID1()+","+a.getID2());
-        gpmatrizinc.add(l,qtdeInc,0);
+        gpmatrizinc.add(l,g.getAlist().size(),0);
         
         for (int i = 0; i < g.getAlist().size(); i++)
             for (int j = 0; j < g.getVlist().size(); j++)
@@ -207,8 +207,9 @@ public class TelaPrincipalController implements Initializable {
         String linha = "";
         List<ArrayList<Vertice>> list = g.getLa();
         
-        for (int i = 0 ; i < list.size() ; i++) {
+        for (int i = 0 ; i < g.getVlist().size() ; i++) {
             
+            linha += g.getVlist().get(i).getID() + " -> ";
             for (int j = 0 ; j < list.get(i).size() ; j++) {
                 
                 linha += list.get(i).get(j).getID();
