@@ -121,9 +121,11 @@ public class TelaPrincipalController implements Initializable {
 
                     case 0:
                         if(!g.isMultigrafo())
+                        {
                             gpmatrizadj.setVisible(true);
                             gpmatrizinc.setVisible(false);
                             taLista.setVisible(false);
+                        }   
                         break;
                     case 1:
                         gpmatrizadj.setVisible(false);
@@ -153,38 +155,20 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizinc.setAlignment(Pos.CENTER_LEFT);
     }
     
-    private void atualizaGpMa(Aresta a){
+    private void atualizaGpMa(){
         
-        int i, j, k ,l;
         int [][] mat = g.getMa();
         
-        if(a == null)
-            for (i = 1, k = 0 ; i <= g.getVlist().size() ; i++)
-                for (j = 1, l = 0 ; j <= g.getVlist().size() ; j++) 
-                    gpmatrizadj.add(new Label("" + mat[k][l]),j,i);
-        else{
-            
-            Node n = null;
-            
-            i = a.getID2() - 64;
-            j = a.getID1() - 64;
-            k = i - 1;
-            l = j - 1;
-            
-            for (Node node : gpmatrizadj.getChildren()) {
-                if(node instanceof Label && gpmatrizadj.getRowIndex(node) == j && gpmatrizadj.getColumnIndex(node) == i)
-                    n = node;
+        gpmatrizadj.getChildren().clear();
+        for(int i = 0; i < g.getVlist().size(); i++) 
+        {
+            gpmatrizadj.add(new Label(""+(char)(i+65)),i+1,0);
+            gpmatrizadj.add(new Label(""+(char)(i+65)),0,i+1);
+            for (int j = 0; j < g.getVlist().size(); j++) 
+            {
+                gpmatrizadj.add(new Label(""+mat[j][i]),i+1,j+1);
             }
-            gpmatrizadj.getChildren().remove(n);
-            for (Node node : gpmatrizadj.getChildren()) {
-                if(node instanceof Label && gpmatrizadj.getRowIndex(node) == i && gpmatrizadj.getColumnIndex(node) == j)
-                    n = node;
-            }
-            gpmatrizadj.getChildren().remove(n);
-            
-            gpmatrizadj.add(new Label("" + mat[k][l]),j,i);
-            gpmatrizadj.add(new Label("" + mat[k][l]),i,j);
-        }
+        }  
     }
     
     
@@ -209,9 +193,10 @@ public class TelaPrincipalController implements Initializable {
         
         for (int i = 0 ; i < g.getVlist().size() ; i++) {
             
-            linha += g.getVlist().get(i).getID() + " -> ";
+            linha += g.getVlist().get(i).getID();
             for (int j = 0 ; j < list.get(i).size() ; j++) {
-                
+                if(j == 0)
+                    linha += " -> ";
                 linha += list.get(i).get(j).getID();
                 if(j < list.get(i).size() - 1)
                     linha += " -> ";
@@ -223,7 +208,7 @@ public class TelaPrincipalController implements Initializable {
     
     private void atualizaRep(Aresta a) {
         
-        atualizaGpMa(a);
+        atualizaGpMa();
         atualizaGpMi(a);
         atualizaLista();
     }
@@ -240,12 +225,11 @@ public class TelaPrincipalController implements Initializable {
         
         l1.setText(""+id);
         l2.setText(""+id);
-        gpmatrizadj.add(l1,g.getVlist().size(),0);
-        gpmatrizadj.add(l2,0,g.getVlist().size());
-        atualizaGpMa(null);
+        atualizaGpMa();
         
         l3.setText(""+id);
         gpmatrizinc.add(l3,0,g.getVlist().size());
+        atualizaLista();
     }
     
     private void verificaTipo() {
@@ -390,12 +374,13 @@ public class TelaPrincipalController implements Initializable {
             }
             else
                 g.addMi(v1.getID()-65, -1*valor);
-                
         }
         g.getAlist().add(a);
         verificaTipo();
         lbQtdeA.setText("A = " + conta);
         atualizaRep(a);
+        if(g.isMultigrafo())
+            gpmatrizadj.setVisible(false);
     }
 
     @FXML
