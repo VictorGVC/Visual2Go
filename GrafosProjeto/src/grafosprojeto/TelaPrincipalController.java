@@ -121,11 +121,11 @@ public class TelaPrincipalController implements Initializable {
 
                     case 0:
                         if(!g.isMultigrafo())
-                        {
                             gpmatrizadj.setVisible(true);
+                        else
+                            gpmatrizadj.setVisible(false);
                             gpmatrizinc.setVisible(false);
                             taLista.setVisible(false);
-                        }   
                         break;
                     case 1:
                         gpmatrizadj.setVisible(false);
