@@ -17,7 +17,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
@@ -215,20 +214,14 @@ public class TelaPrincipalController implements Initializable {
     
     private void addVerticeMatriz(char id) {
         
-        Label l1 = new Label();
-        Label l2 = new Label();
-        Label l3 = new Label();
+        Label l = new Label();
         
-        l1.setPrefSize(30, 5);
-        l2.setPrefSize(30, 5);
-        l3.setPrefSize(30, 5);
+        l.setPrefSize(30, 5);
         
-        l1.setText(""+id);
-        l2.setText(""+id);
         atualizaGpMa();
         
-        l3.setText(""+id);
-        gpmatrizinc.add(l3,0,g.getVlist().size());
+        l.setText(""+id);
+        gpmatrizinc.add(l,0,g.getVlist().size());
         atualizaLista();
     }
     
@@ -242,13 +235,13 @@ public class TelaPrincipalController implements Initializable {
         g.setSimples(true);
         lbMultigrafo.setText("Multigrafo? Não");
         g.setMultigrafo(false);
-        for (i = 0 ; i < conta && flag; i++) {
+        for (i = 0 ; i < conta && flag ; i++) {
             
             auxA = g.getAlist().get(i);
-            for (j = i + 1 ; j < conta && flag; j++) {
+            for (j = i + 1 ; j < conta && flag ; j++) {
                 
                 auxA2 = g.getAlist().get(j);
-                if(auxA.getID1() == auxA2.getID2() && auxA.getID2() == auxA2.getID1()){
+                if (auxA.getID1() == auxA2.getID2() && auxA.getID2() == auxA2.getID1()) {
                     
                     lbSimples.setText("Simples? Não");
                     g.setSimples(false);
@@ -258,35 +251,31 @@ public class TelaPrincipalController implements Initializable {
                 }
             }
         }
-        
         flag = true;
         grau = g.getVlist().get(0).getGrau();
-        for (i = 1 ; i < qtdeV && flag; i++) 
-        {
+        for (i = 1 ; i < qtdeV && flag ; i++)
             if(grau != g.getVlist().get(i).getGrau())
                 flag = false;
-        }
-        if(flag)
-        {
+        if (flag) {
+            
             lbRegular.setText("Regular? Sim");
             g.setRegular(true);
         } 
-        else      
-        {
+        else {
+            
             lbRegular.setText("Regular? Não");
             g.setRegular(false);
         }
-        if(qtdeV * (qtdeV - 1) / 2 == conta)
-        {
+        if (qtdeV * (qtdeV - 1) / 2 == conta) {
+            
             lbCompleto.setText("Completo? Sim");
             g.setCompleto(true);
         }
-        else
-        {
+        else {
+            
             lbCompleto.setText("Completo? Não");
             g.setCompleto(false);
-        }
-            
+        }    
     }
     
     private void mouseEvents(Vertice v) {

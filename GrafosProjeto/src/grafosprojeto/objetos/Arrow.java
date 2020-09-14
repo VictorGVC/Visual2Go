@@ -3,23 +3,24 @@ package grafosprojeto.objetos;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.DoubleProperty;
 import javafx.scene.Group;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 
 public class Arrow extends Group{
+    
     private final Line line;
+    private static final double arrowLength = 20;
+    private static final double arrowWidth = 7;
 
     public Arrow() {
         this(new Line(), new Line(), new Line());
     }
-
-    private static final double arrowLength = 20;
-    private static final double arrowWidth = 7;
-
+    
     private Arrow(Line line, Line arrow1, Line arrow2) {
+        
         super(line, arrow1, arrow2);
         this.line = line;
         InvalidationListener updater = o -> {
+            
             double ex = getEndX();
             double ey = getEndY();
             double sx = getStartX();
@@ -31,12 +32,15 @@ public class Arrow extends Group{
             arrow2.setEndY(ey);
 
             if (ex == sx && ey == sy) {
+                
                 // arrow parts of length 0
                 arrow1.setStartX(ex);
                 arrow1.setStartY(ey);
                 arrow2.setStartX(ex);
                 arrow2.setStartY(ey);
-            } else {
+            } 
+            else {
+                
                 double factor = arrowLength / Math.hypot(sx-ex, sy-ey);
                 double factorO = arrowWidth / Math.hypot(sx-ex, sy-ey);
 
