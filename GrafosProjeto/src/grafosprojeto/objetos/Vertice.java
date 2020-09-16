@@ -12,7 +12,7 @@ public class Vertice {
     private Label l;
     private AnchorPane ap;
     private Circle bola, dist,loop;
-    private int grau, cx, cy;
+    private int grauE, grauR, cx, cy;
     private char ID, status;
 
     public Vertice() {
@@ -106,14 +106,22 @@ public class Vertice {
         this.status = status;
     }
     
-    public int getGrau() {
-        return grau;
+    public int getGrauE() {
+        return grauE;
     }
 
-    public void setGrau(int grau) {
-        this.grau = grau;
+    public void setGrauE(int grau) {
+        this.grauE = grau;
     }
 
+    public int getGrauR() {
+        return grauR;
+    }
+
+    public void setGrauR(int grauR) {
+        this.grauR = grauR;
+    }
+    
     public Circle getBola() {
         return bola;
     }

@@ -227,35 +227,40 @@ public class TelaPrincipalController implements Initializable {
     
     private void verificaTipo() {
         
-        int i, j, qtdeV = cont - 64, grau;
+        int i, j, qtdeV = cont - 64, grauE, grauR;
         boolean flag = true;
         Aresta auxA, auxA2;
         
-        lbSimples.setText("Simples? Sim");
-        g.setSimples(true);
-        lbMultigrafo.setText("Multigrafo? Não");
-        g.setMultigrafo(false);
         for (i = 0 ; i < conta && flag ; i++) {
             
             auxA = g.getAlist().get(i);
-            for (j = i + 1 ; j < conta && flag ; j++) {
+            if(auxA.getID1() == auxA.getID2()){
                 
-                auxA2 = g.getAlist().get(j);
-                if (auxA.getID1() == auxA2.getID2() && auxA.getID2() == auxA2.getID1()) {
-                    
-                    lbSimples.setText("Simples? Não");
-                    g.setSimples(false);
-                    lbMultigrafo.setText("Multigrafo? Sim");
-                    g.setMultigrafo(true);
-                    flag = false;
-                }
+                lbSimples.setText("Simples? Não");
+                g.setSimples(false);
+                flag = false;
             }
         }
+        if(flag){
+            
+            lbSimples.setText("Simples? Sim");
+            g.setSimples(true);
+        }
+        
         flag = true;
-        grau = g.getVlist().get(0).getGrau();
-        for (i = 1 ; i < qtdeV && flag ; i++)
-            if(grau != g.getVlist().get(i).getGrau())
-                flag = false;
+        grauE = g.getVlist().get(0).getGrauE();
+        if(!g.isDir()){
+            
+            for (i = 1 ; i < qtdeV && flag ; i++)
+                if(grauE != g.getVlist().get(i).getGrauE())
+                    flag = false;
+        }
+        else {
+            grauR = g.getVlist().get(0).getGrauR();
+            for (i = 1 ; i < qtdeV && flag ; i++)
+                if(grauE != g.getVlist().get(i).getGrauE() && grauR != g.getVlist().get(i).getGrauR())
+                    flag = false;        
+        }
         if (flag) {
             
             lbRegular.setText("Regular? Sim");
@@ -266,16 +271,61 @@ public class TelaPrincipalController implements Initializable {
             lbRegular.setText("Regular? Não");
             g.setRegular(false);
         }
-        if (qtdeV * (qtdeV - 1) / 2 == conta) {
+        flag = true;
+        
+        if (!g.isDir()){
+            
+            if (qtdeV * (qtdeV - 1) / 2 == conta && g.isSimples()) {
+            
+                lbCompleto.setText("Completo? Sim");
+                g.setCompleto(true);
+                flag = false;
+            }
+        }
+        else if (qtdeV * (qtdeV - 1) == conta && g.isSimples()) {
             
             lbCompleto.setText("Completo? Sim");
             g.setCompleto(true);
+            flag = false;
         }
-        else {
+        if(flag){
             
             lbCompleto.setText("Completo? Não");
             g.setCompleto(false);
-        }    
+        } 
+        
+        flag = true;
+        lbMultigrafo.setText("Multigrafo? Não");
+        g.setMultigrafo(false);
+        for (i = 0 ; i < conta && flag; i++) {
+            
+            auxA = g.getAlist().get(i);
+            for (j = i + 1 ; j < conta && flag ; j++) {
+                
+                auxA2 = g.getAlist().get(j);
+                if (auxA.getID1() == auxA2.getID2() && auxA.getID2() == auxA2.getID1()) {
+                    
+                    lbMultigrafo.setText("Multigrafo? Sim");
+                    g.setMultigrafo(true);
+                    lbSimples.setText("Simples? Não");
+                    g.setSimples(false);
+                    flag = false;
+                }
+                if (auxA.getID1() == auxA2.getID1() && auxA.getID2() == auxA2.getID2()) {
+
+                    lbMultigrafo.setText("Multigrafo? Sim");
+                    g.setMultigrafo(true);
+                    lbSimples.setText("Simples? Não");
+                    g.setSimples(false);
+                    flag = false;
+                }
+                else {
+
+                    lbMultigrafo.setText("Multigrafo? Não");
+                    g.setMultigrafo(false);
+                }
+            }
+        }  
     }
     
     private void mouseEvents(Vertice v) {
@@ -321,8 +371,16 @@ public class TelaPrincipalController implements Initializable {
                 v2 = v;
         }
         
-        v1.setGrau(v1.getGrau() + 1);
-        v2.setGrau(v2.getGrau() + 1);
+        if (!g.isDir()) {
+            
+            v1.setGrauE(v1.getGrauE() + 1);
+            v2.setGrauE(v2.getGrauE() + 1);
+        }
+        else {
+            
+            v1.setGrauE(v1.getGrauE() + 1);
+            v2.setGrauR(v2.getGrauR() + 1);
+        }
         if(g.isVal()){
             
             valor = Integer.parseInt(JOptionPane.showInputDialog("valor"));
