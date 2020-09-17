@@ -428,6 +428,8 @@ public class TelaPrincipalController implements Initializable {
         atualizaRep(a);
         if(g.isMultigrafo())
             gpmatrizadj.setVisible(false);
+        
+        g.atualizaCor();
     }
 
     @FXML
