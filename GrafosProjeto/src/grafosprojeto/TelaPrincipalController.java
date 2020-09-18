@@ -52,6 +52,8 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private GridPane gpmatrizadj;
     @FXML
+    private GridPane gpmatrizcores;
+    @FXML
     private JFXTextArea taLista;
     @FXML
     private Label lbQtdeV;
@@ -105,6 +107,7 @@ public class TelaPrincipalController implements Initializable {
         list.add("Matriz de Adjacência");
         list.add("Matriz de Incidência");
         list.add("Lista de Adjacência");
+        list.add("Lista de Coloração");
         
         cbMatrizes.setItems(FXCollections.observableArrayList(list));
     }
@@ -125,17 +128,26 @@ public class TelaPrincipalController implements Initializable {
                             gpmatrizadj.setVisible(false);
                             gpmatrizinc.setVisible(false);
                             taLista.setVisible(false);
+                            gpmatrizcores.setVisible(false);
                         break;
                     case 1:
                         gpmatrizadj.setVisible(false);
                         gpmatrizinc.setVisible(true);
                         taLista.setVisible(false);
+                        gpmatrizcores.setVisible(false);
                         break;
                     case 2:
                         gpmatrizadj.setVisible(false);
                         gpmatrizinc.setVisible(false);
                         taLista.setVisible(true);
+                        gpmatrizcores.setVisible(false);
                         break;   
+                    case 3:
+                        gpmatrizadj.setVisible(false);
+                        gpmatrizinc.setVisible(false);
+                        taLista.setVisible(false);
+                        gpmatrizcores.setVisible(true);
+                        break;     
                     default:
                         break;
                 }
@@ -152,6 +164,13 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizinc.setVgap(5); 
         gpmatrizinc.setHgap(5);
         gpmatrizinc.setAlignment(Pos.CENTER_LEFT);
+        
+        gpmatrizcores.setVgap(5); 
+        gpmatrizcores.setHgap(5);
+        gpmatrizcores.setAlignment(Pos.CENTER_LEFT);
+        
+        for (int i = 1 ; i <= 10 ; i++)
+            gpmatrizcores.add(new Label(""+i),i,0);
     }
     
     private void atualizaGpMa(){
@@ -205,11 +224,29 @@ public class TelaPrincipalController implements Initializable {
         taLista.setText(linha);
     }
     
+    private void atualizaGpCor() {
+        
+        int [][] mat = g.getMatcor();
+        
+        gpmatrizcores.getChildren().clear();
+        for(int i = 0; i < g.getVlist().size(); i++) 
+        {
+            for (int j = 0; j < 10; j++) 
+            {
+                if(mat[i][j] != 0)
+                    gpmatrizcores.add(new Label(""+mat[i][j]), j+1, i+1);
+                else
+                    gpmatrizcores.add(new Label("X"), j+1, i+1);
+            }
+        }  
+    }
+    
     private void atualizaRep(Aresta a) {
         
         atualizaGpMa();
         atualizaGpMi(a);
         atualizaLista();
+        atualizaGpCor();
     }
     
     private void addVerticeMatriz(char id) {
@@ -222,7 +259,12 @@ public class TelaPrincipalController implements Initializable {
         
         l.setText(""+id);
         gpmatrizinc.add(l,0,g.getVlist().size());
+        
         atualizaLista();
+        
+        gpmatrizcores.add(l,0,g.getVlist().size());
+        for (int i = 1 ; i <= 10 ; i++)
+            gpmatrizcores.add(new Label("X"),i,g.getVlist().size());
     }
     
     private void verificaTipo() {

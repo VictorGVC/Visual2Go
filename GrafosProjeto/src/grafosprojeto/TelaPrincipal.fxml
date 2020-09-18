@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="700.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
+<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
    <children>
-      <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="365.0" prefWidth="800.0" style="-fx-background-color: lightgray;" />
+      <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="300.0" prefWidth="800.0" style="-fx-background-color: lightgray;" />
       <HBox alignment="CENTER" fillHeight="false" prefHeight="60.0" prefWidth="800.0" spacing="35.0" style="-fx-background-color: #FF6600;">
          <children>
             <JFXComboBox fx:id="cbMatrizes" focusColor="BLACK" prefWidth="153.0" unFocusColor="BLACK" />
@@ -46,6 +46,14 @@
                 <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
                 <RowConstraints vgrow="SOMETIMES" />
                 <RowConstraints vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+            <GridPane fx:id="gpmatrizcores" layoutX="25.0" layoutY="25.0" prefHeight="270.0" prefWidth="750.0" visible="false">
+              <columnConstraints>
+                <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
               </rowConstraints>
             </GridPane>
             <JFXTextArea fx:id="taLista" editable="false" focusColor="BLACK" prefHeight="315.0" prefWidth="800.0" unFocusColor="BLACK" visible="false" />
