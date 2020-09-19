@@ -53,9 +53,11 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private GridPane gpmatrizadj;
     @FXML
+    private JFXTextArea taLista;
+    @FXML
     private GridPane gpmatrizcores;
     @FXML
-    private JFXTextArea taLista;
+    private JFXTextArea taFila;
     @FXML
     private Label lbQtdeV;
     @FXML
@@ -66,13 +68,32 @@ public class TelaPrincipalController implements Initializable {
     @Override  
     public void initialize(URL url, ResourceBundle rb) {
         
-        g = new Grafo(isDirecional(),isValorado());
-        cont = 64;
-        inicializaGp();
-        conta = 0;
-        qtdeInc = 1;
+        initNewGrafo();
         listaMatrizaes();
         esperaLista();
+    }
+    
+    private void initNewGrafo() {
+        
+        g = new Grafo(isDirecional(),isValorado());
+        
+        cont = 64;
+        conta = 0;
+        qtdeInc = 1;
+        
+        gpmatrizadj.getChildren().clear();
+        pngrafo.getChildren().clear();
+        gpmatrizcores.getChildren().clear();
+        gpmatrizinc.getChildren().clear();
+        
+        lbQtdeV.setText("V = 0");
+        lbQtdeA.setText("A = 0");
+        lbSimples.setText("Simples? Não");
+        lbRegular.setText("Regular? Não");
+        lbCompleto.setText("Completo? Não");
+        lbMultigrafo.setText("Multigrafo? Não");
+        
+        inicializaGp();
     }
     
     private boolean isDirecional() {
@@ -110,7 +131,7 @@ public class TelaPrincipalController implements Initializable {
         list.add("Matriz de Adjacência");
         list.add("Matriz de Incidência");
         list.add("Lista de Adjacência");
-        list.add("Lista de Coloração");
+        list.add("Coloração");
         
         cbMatrizes.setItems(FXCollections.observableArrayList(list));
     }
@@ -132,24 +153,28 @@ public class TelaPrincipalController implements Initializable {
                             gpmatrizinc.setVisible(false);
                             taLista.setVisible(false);
                             gpmatrizcores.setVisible(false);
+                            taFila.setVisible(false);
                         break;
                     case 1:
                         gpmatrizadj.setVisible(false);
                         gpmatrizinc.setVisible(true);
                         taLista.setVisible(false);
                         gpmatrizcores.setVisible(false);
+                        taFila.setVisible(false);
                         break;
                     case 2:
                         gpmatrizadj.setVisible(false);
                         gpmatrizinc.setVisible(false);
                         taLista.setVisible(true);
                         gpmatrizcores.setVisible(false);
+                        taFila.setVisible(false);
                         break;   
                     case 3:
                         gpmatrizadj.setVisible(false);
                         gpmatrizinc.setVisible(false);
                         taLista.setVisible(false);
                         gpmatrizcores.setVisible(true);
+                        taFila.setVisible(true);
                         break;     
                     default:
                         break;
@@ -234,14 +259,30 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizcores.getChildren().clear();
         for(int i = 0; i < g.getVlist().size(); i++) 
         {
+            gpmatrizcores.add(new Label(""+(char)(i+65)),0,i+1);
             for (int j = 0; j < 10; j++) 
             {
-                if(mat[i][j] != 0)
+                gpmatrizcores.add(new Label(""+(j+1)),j+1,0);
+                if(mat[i][j] != -1)
                     gpmatrizcores.add(new Label(""+mat[i][j]), j+1, i+1);
                 else
                     gpmatrizcores.add(new Label("X"), j+1, i+1);
             }
         }  
+    }
+    
+    private void atualizaFila() {
+        
+        String linha = "";
+        List<Vertice> list = g.getLbfsc();
+        
+        for (int i = 0 ; i < list.size() ; i++) {
+            
+            linha += g.getLbfsc().get(i).getID();
+            if(i < list.size() - 1)
+                linha += " -> ";
+        }
+        taFila.setText(linha);
     }
     
     private void atualizaRep(Aresta a) {
@@ -253,20 +294,23 @@ public class TelaPrincipalController implements Initializable {
     
     private void addVerticeMatriz(char id) {
         
-        Label l = new Label();
+        Label l1 = new Label();
+        Label l2 = new Label();
         
-        l.setPrefSize(30, 5);
+        l1.setText("" + id);
+        l1.setPrefSize(30, 5);
+        l2.setText("" + id);
+        l2.setPrefSize(30, 5);
         
         atualizaGpMa();
         
-        l.setText(""+id);
-        gpmatrizinc.add(l,0,g.getVlist().size());
+        gpmatrizinc.add(l1,0,g.getVlist().size());
         
         atualizaLista();
         
-        gpmatrizcores.add(l,0,g.getVlist().size());
+        gpmatrizcores.add(l2,0,g.getVlist().size());
         for (int i = 1 ; i <= 10 ; i++)
-            gpmatrizcores.add(new Label("X"),i,g.getVlist().size());
+            gpmatrizcores.add(new Label("0"),i,g.getVlist().size());
     }
     
     private void verificaTipo() {
@@ -475,6 +519,7 @@ public class TelaPrincipalController implements Initializable {
         
         g.atualizaCor();
         atualizaGpCor();
+        atualizaFila();
     }
 
     @FXML
@@ -486,7 +531,7 @@ public class TelaPrincipalController implements Initializable {
         for (Vertice vv : g.getVlist())
             if(vv.getDist().getBoundsInParent().intersects(v.getAp().getBoundsInParent()))
                 vdd = false;
-        if(vdd && g.getVlist().size() < 10){
+        if (vdd && g.getVlist().size() < 10) {
             
             g.getVlist().add(v);
             mouseEvents(v);
@@ -495,7 +540,7 @@ public class TelaPrincipalController implements Initializable {
             lbQtdeV.setText("V = " + (cont - 64));
             addVerticeMatriz(cont);
         }
-        else{
+        else {
             
             cont--;
             pngrafo.getChildren().removeAll(v.getAp(),v.getDist());
@@ -504,12 +549,7 @@ public class TelaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void newGrafo(ActionEvent event) 
-    {
-        g = new Grafo();
-        gpmatrizadj.getChildren().clear();
-        pngrafo.getChildren().clear();
-        gpmatrizcores.getChildren().clear();
-        gpmatrizinc.getChildren().clear();
+    private void newGrafo(ActionEvent event) {
+        initNewGrafo();
     }
 }

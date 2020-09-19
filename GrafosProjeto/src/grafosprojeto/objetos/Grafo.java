@@ -91,7 +91,7 @@ public class Grafo {
                     vlist.get(i).getBola().setFill(Color.CORAL);
                 break;
                 case 3:
-                    vlist.get(i).getBola().setFill(Color.ALICEBLUE);
+                    vlist.get(i).getBola().setFill(Color.CORNFLOWERBLUE);
                 break;
                 case 4:
                     vlist.get(i).getBola().setFill(Color.BURLYWOOD);

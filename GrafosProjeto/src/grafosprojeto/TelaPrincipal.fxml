@@ -11,22 +11,22 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
+<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
    <children>
-      <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="300.0" prefWidth="800.0" style="-fx-background-color: lightgray;" />
-      <HBox alignment="CENTER" fillHeight="false" prefHeight="60.0" prefWidth="800.0" spacing="35.0" style="-fx-background-color: #FF6600;">
+      <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="300.0" prefWidth="789.0" style="-fx-background-color: #99d2e0;" />
+      <HBox alignment="CENTER" fillHeight="false" prefHeight="60.0" prefWidth="800.0" spacing="28.0" style="-fx-background-color: #34acbc;">
          <children>
-            <JFXComboBox fx:id="cbMatrizes" focusColor="BLACK" prefHeight="25.0" prefWidth="121.0" unFocusColor="BLACK" />
+            <JFXComboBox fx:id="cbMatrizes" focusColor="BLACK" prefHeight="25.0" prefWidth="155.0" unFocusColor="BLACK" />
             <Label fx:id="lbQtdeV" text="V = 0" />
             <Label fx:id="lbQtdeA" text="A = 0" />
             <Label fx:id="lbSimples" text="Simples? Não" />
             <Label fx:id="lbRegular" text="Regular? Não" />
             <Label fx:id="lbCompleto" text="Completo? Não" />
             <Label fx:id="lbMultigrafo" text="Multigrafo? Não" />
-            <JFXButton fx:id="btnew" onAction="#newGrafo" prefHeight="25.0" prefWidth="49.0" text="new" />
+            <JFXButton fx:id="btnew" alignment="CENTER" buttonType="RAISED" contentDisplay="CENTER" onAction="#newGrafo" prefHeight="35.0" prefWidth="35.0" style="-fx-background-image: url('icons/new.png'); -fx-background-position: center center; -fx-background-repeat: no-repeat; -fx-background-color: transparent;" />
          </children>
       </HBox>
-      <Pane prefHeight="335.0" prefWidth="750.0" style="-fx-background-color: gray;">
+      <Pane prefHeight="335.0" prefWidth="750.0" style="-fx-background-color: #bdc9c8;">
          <children>
             <GridPane fx:id="gpmatrizinc" layoutX="25.0" layoutY="25.0" prefHeight="270.0" prefWidth="750.0" visible="false">
               <columnConstraints>
@@ -50,7 +50,8 @@
                 <RowConstraints vgrow="SOMETIMES" />
               </rowConstraints>
             </GridPane>
-            <GridPane fx:id="gpmatrizcores" layoutX="25.0" layoutY="25.0" prefHeight="270.0" prefWidth="750.0" visible="false">
+            <JFXTextArea fx:id="taLista" editable="false" focusColor="BLACK" prefHeight="315.0" prefWidth="800.0" unFocusColor="BLACK" visible="false" />
+            <GridPane fx:id="gpmatrizcores" layoutX="400.0" layoutY="25.0" prefHeight="270.0" prefWidth="375.0" visible="false">
               <columnConstraints>
                 <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
               </columnConstraints>
@@ -58,7 +59,7 @@
                 <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
               </rowConstraints>
             </GridPane>
-            <JFXTextArea fx:id="taLista" editable="false" focusColor="BLACK" prefHeight="315.0" prefWidth="800.0" unFocusColor="BLACK" visible="false" />
+            <JFXTextArea fx:id="taFila" editable="false" focusColor="BLACK" prefHeight="315.0" prefWidth="400.0" unFocusColor="BLACK" visible="false" />
          </children></Pane>
    </children>
 </VBox>
