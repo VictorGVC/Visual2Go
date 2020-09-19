@@ -55,20 +55,17 @@ public class Grafo {
     
     public void atualizaCor() 
     {
-        
         lbfsc = new ArrayList<>();
         matcor = new int[10][10];
-        Vertice v = getMaiorGrau(vlist);
         
-        while(lbfsc.size() < vlist.size())
-            lbfsc.addAll(getBFSByGrau(v));
+        getBFSByGrau();
         
         for (int i = 0; i < lbfsc.size(); i++) 
         {
             int j = 0;
             while(j < 10 && matcor[lbfsc.get(i).getID()-65][j] == -1) 
                 j++;
-            matcor[lbfsc.get(i).getID()-65][j] = j;
+            matcor[lbfsc.get(i).getID()-65][j] = j+1;
             for (int k = 0; k < la.get(lbfsc.get(i).getID()-65).size(); k++) {
                 matcor[la.get(lbfsc.get(i).getID()-65).get(k).getID()-65][j] = -1;
             }
@@ -87,7 +84,7 @@ public class Grafo {
             
             switch(matcor[vlist.get(i).getID()-65][j])
             {
-                case 0:
+                case 1:
                     vlist.get(i).getBola().setFill(Paint.valueOf("0x00FFFF"));
                 break;
                 case 2:
@@ -114,35 +111,52 @@ public class Grafo {
                 case 9:
                     vlist.get(i).getBola().setFill(Color.SIENNA);
                 break;
-                case 1:
+                case 10:
                     vlist.get(i).getBola().setFill(Color.SLATEGREY);
                 break;
             }
         }
     }
     
-    private List getBFSByGrau(Vertice v)
+    private void getBFSByGrau()
     {
-        List aoba = new ArrayList();
-        if(!lbfsc.contains(v))
-            aoba.add(v);
-        for (int i = 0; i < v.getGrauE(); i++)
+        List ver = new ArrayList();
+        while(lbfsc.size() < vlist.size())
         {
-            Vertice atual = getMaiorGrau(la.get(v.getID()-65).subList(i, la.get(v.getID()-65).size()));
-            if(!lbfsc.contains(atual))
-                aoba.add(atual);
+            Vertice v = getMaiorGrau(vlist,ver);
+            lbfsc.add(v);
+            BFS(v,ver);
         }
-        return aoba;
     }
     
-    private Vertice getMaiorGrau(List<Vertice> l)
+    private void BFS(Vertice v, List ver)
     {
-        Vertice v = l.get(0);
+        ver.add(v);
+        
+        Vertice aux;
+        for (int i = 0; i < la.get(v.getID()-65).size(); i++) 
+        {
+            aux = getMaiorGrau(la.get(v.getID()-65), lbfsc);
+            if(aux.getGrauE() != -1)
+                lbfsc.add(aux);
+        }
+        for (int i = 0; i < la.get(v.getID()-65).size(); i++) 
+        {
+            Vertice a1 = getMaiorGrau(la.get(v.getID()-65), ver);
+            if(a1.getGrauE() != -1)
+                BFS(a1,ver);
+        }
+    }
+    
+    private Vertice getMaiorGrau(List<Vertice> l, List ver)
+    {
+        Vertice v = new Vertice();
+        v.setGrauE(-1);
         Vertice v1 = null;
         for (int i = 0; i < l.size(); i++) 
         {
             v1 = l.get(i);
-            if(v1.getGrauE()>v.getGrauE())
+            if(v1.getGrauE() > v.getGrauE() && !ver.contains(v1))
                 v = v1;
         }
         

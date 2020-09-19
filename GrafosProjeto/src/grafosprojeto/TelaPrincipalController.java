@@ -246,7 +246,6 @@ public class TelaPrincipalController implements Initializable {
         atualizaGpMa();
         atualizaGpMi(a);
         atualizaLista();
-        atualizaGpCor();
     }
     
     private void addVerticeMatriz(char id) {
@@ -472,6 +471,7 @@ public class TelaPrincipalController implements Initializable {
             gpmatrizadj.setVisible(false);
         
         g.atualizaCor();
+        atualizaGpCor();
     }
 
     @FXML
