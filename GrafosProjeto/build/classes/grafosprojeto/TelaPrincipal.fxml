@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import javafx.scene.control.Label?>
@@ -10,18 +11,19 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
+<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
    <children>
       <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="300.0" prefWidth="800.0" style="-fx-background-color: lightgray;" />
       <HBox alignment="CENTER" fillHeight="false" prefHeight="60.0" prefWidth="800.0" spacing="35.0" style="-fx-background-color: #FF6600;">
          <children>
-            <JFXComboBox fx:id="cbMatrizes" focusColor="BLACK" prefWidth="153.0" unFocusColor="BLACK" />
+            <JFXComboBox fx:id="cbMatrizes" focusColor="BLACK" prefHeight="25.0" prefWidth="121.0" unFocusColor="BLACK" />
             <Label fx:id="lbQtdeV" text="V = 0" />
             <Label fx:id="lbQtdeA" text="A = 0" />
             <Label fx:id="lbSimples" text="Simples? Não" />
             <Label fx:id="lbRegular" text="Regular? Não" />
             <Label fx:id="lbCompleto" text="Completo? Não" />
             <Label fx:id="lbMultigrafo" text="Multigrafo? Não" />
+            <JFXButton fx:id="btnew" onAction="#newGrafo" prefHeight="25.0" prefWidth="49.0" text="new" />
          </children>
       </HBox>
       <Pane prefHeight="335.0" prefWidth="750.0" style="-fx-background-color: gray;">

@@ -1,5 +1,6 @@
 package grafosprojeto;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import grafosprojeto.objetos.Aresta;
@@ -59,6 +60,8 @@ public class TelaPrincipalController implements Initializable {
     private Label lbQtdeV;
     @FXML
     private Label lbQtdeA;
+    @FXML
+    private JFXButton btnew;
 
     @Override  
     public void initialize(URL url, ResourceBundle rb) {
@@ -498,5 +501,15 @@ public class TelaPrincipalController implements Initializable {
             pngrafo.getChildren().removeAll(v.getAp(),v.getDist());
             v = null;
         }
+    }
+
+    @FXML
+    private void newGrafo(ActionEvent event) 
+    {
+        g = new Grafo();
+        gpmatrizadj.getChildren().clear();
+        pngrafo.getChildren().clear();
+        gpmatrizcores.getChildren().clear();
+        gpmatrizinc.getChildren().clear();
     }
 }
