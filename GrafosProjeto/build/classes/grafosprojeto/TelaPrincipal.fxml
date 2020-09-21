@@ -59,7 +59,7 @@
                 <RowConstraints valignment="BOTTOM" vgrow="ALWAYS" />
               </rowConstraints>
             </GridPane>
-            <JFXTextArea fx:id="taFila" focusColor="BLACK" prefHeight="315.0" prefWidth="400.0" unFocusColor="BLACK" visible="false" />
+            <JFXTextArea fx:id="taFila" editable="false" focusColor="BLACK" prefHeight="315.0" prefWidth="400.0" unFocusColor="BLACK" visible="false" />
          </children></Pane>
    </children>
 </VBox>

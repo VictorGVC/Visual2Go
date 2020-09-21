@@ -67,7 +67,8 @@ public class Grafo {
                 j++;
             matcor[lbfsc.get(i).getID()-65][j] = j+1;
             for (int k = 0; k < la.get(lbfsc.get(i).getID()-65).size(); k++) {
-                matcor[la.get(lbfsc.get(i).getID()-65).get(k).getID()-65][j] = -1;
+                if(la.get(lbfsc.get(i).getID()-65).get(k) != lbfsc.get(i))
+                    matcor[la.get(lbfsc.get(i).getID()-65).get(k).getID()-65][j] = -1;
             }
         }
         
