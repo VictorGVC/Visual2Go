@@ -385,35 +385,51 @@ public class TelaPrincipalController implements Initializable {
         flag = true;
         lbMultigrafo.setText("Multigrafo? Não");
         g.setMultigrafo(false);
-        for (i = 0 ; i < conta && flag; i++) {
-            
-            auxA = g.getAlist().get(i);
-            for (j = i + 1 ; j < conta && flag ; j++) {
-                
-                auxA2 = g.getAlist().get(j);
-                if (auxA.getID1() == auxA2.getID2() && auxA.getID2() == auxA2.getID1()) {
-                    
-                    lbMultigrafo.setText("Multigrafo? Sim");
-                    g.setMultigrafo(true);
-                    lbSimples.setText("Simples? Não");
-                    g.setSimples(false);
-                    flag = false;
-                }
-                if (auxA.getID1() == auxA2.getID1() && auxA.getID2() == auxA2.getID2()) {
+        if(!g.isDir())
+            for (i = 0 ; i < conta && flag; i++) {
 
-                    lbMultigrafo.setText("Multigrafo? Sim");
-                    g.setMultigrafo(true);
-                    lbSimples.setText("Simples? Não");
-                    g.setSimples(false);
-                    flag = false;
+                auxA = g.getAlist().get(i);
+                for (j = i + 1 ; j < conta && flag ; j++) 
+                {
+                    auxA2 = g.getAlist().get(j);
+                    if (auxA.getID1() == auxA2.getID2() && auxA.getID2() == auxA2.getID1() || 
+                            auxA.getID1() == auxA2.getID1() && auxA.getID2() == auxA2.getID2()) 
+                    {
+                        lbMultigrafo.setText("Multigrafo? Sim");
+                        g.setMultigrafo(true);
+                        lbSimples.setText("Simples? Não");
+                        g.setSimples(false);
+                        flag = false;
+                    }
+                    else 
+                    {
+                        lbMultigrafo.setText("Multigrafo? Não");
+                        g.setMultigrafo(false);
+                    }
                 }
-                else {
+            }  
+        else
+            for (i = 0 ; i < conta && flag; i++) {
 
-                    lbMultigrafo.setText("Multigrafo? Não");
-                    g.setMultigrafo(false);
+                auxA = g.getAlist().get(i);
+                for (j = i + 1 ; j < conta && flag ; j++) 
+                {
+                    auxA2 = g.getAlist().get(j);
+                    if (auxA.getID1() == auxA2.getID1() && auxA.getID2() == auxA2.getID2()) 
+                    {
+                        lbMultigrafo.setText("Multigrafo? Sim");
+                        g.setMultigrafo(true);
+                        lbSimples.setText("Simples? Não");
+                        g.setSimples(false);
+                        flag = false;
+                    }
+                    else 
+                    {
+                        lbMultigrafo.setText("Multigrafo? Não");
+                        g.setMultigrafo(false);
+                    }
                 }
-            }
-        }  
+            }  
     }
     
     private void mouseEvents(Vertice v) {
