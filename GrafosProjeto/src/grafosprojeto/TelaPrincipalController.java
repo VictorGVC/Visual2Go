@@ -75,7 +75,10 @@ public class TelaPrincipalController implements Initializable {
     
     private void initNewGrafo() {
         
+        if(g != null && g.isDir())
+            cbMatrizes.getItems().clear();
         g = new Grafo(isDirecional(),isValorado());
+        listaMatrizaes();
         
         cont = 64;
         conta = 0;
@@ -85,6 +88,10 @@ public class TelaPrincipalController implements Initializable {
         pngrafo.getChildren().clear();
         gpmatrizcores.getChildren().clear();
         gpmatrizinc.getChildren().clear();
+        gpmatrizcores.getChildren().clear();
+        taFila.setText("");
+        taLista.setText("");
+        
         
         lbQtdeV.setText("V = 0");
         lbQtdeA.setText("A = 0");
@@ -131,7 +138,8 @@ public class TelaPrincipalController implements Initializable {
         list.add("Matriz de Adjacência");
         list.add("Matriz de Incidência");
         list.add("Lista de Adjacência");
-        list.add("Coloração");
+        if(!g.isDir())
+            list.add("Coloração");
         
         cbMatrizes.setItems(FXCollections.observableArrayList(list));
     }
@@ -197,8 +205,9 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizcores.setHgap(5);
         gpmatrizcores.setAlignment(Pos.CENTER_LEFT);
         
-        for (int i = 1 ; i <= 10 ; i++)
-            gpmatrizcores.add(new Label(""+i),i,0);
+        if(!g.isDir())
+            for (int i = 1 ; i <= 10 ; i++)
+                gpmatrizcores.add(new Label(""+i),i,0);
     }
     
     private void atualizaGpMa(){
@@ -533,9 +542,12 @@ public class TelaPrincipalController implements Initializable {
         if(g.isMultigrafo())
             gpmatrizadj.setVisible(false);
         
-        g.atualizaCor();
-        atualizaGpCor();
-        atualizaFila();
+        if(!g.isDir())
+        {
+            g.atualizaCor();
+            atualizaGpCor();
+            atualizaFila();
+        }
     }
 
     @FXML
