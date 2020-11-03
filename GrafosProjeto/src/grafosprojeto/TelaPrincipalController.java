@@ -21,6 +21,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -64,6 +65,10 @@ public class TelaPrincipalController implements Initializable {
     private Label lbQtdeA;
     @FXML
     private JFXButton btnew;
+    @FXML
+    private GridPane gpmatrizadj1;
+    @FXML
+    private GridPane gpmatrizadj11;
 
     @Override  
     public void initialize(URL url, ResourceBundle rb) {
@@ -138,6 +143,7 @@ public class TelaPrincipalController implements Initializable {
         list.add("Matriz de Adjacência");
         list.add("Matriz de Incidência");
         list.add("Lista de Adjacência");
+        list.add("Floyd");
         if(!g.isDir())
             list.add("Coloração");
         
@@ -544,8 +550,8 @@ public class TelaPrincipalController implements Initializable {
         
         if(!g.isDir())
         {
-            g.atualizaCor();
-            atualizaGpCor();
+//            g.atualizaCor();
+//            atualizaGpCor();
             atualizaFila();
         }
     }
@@ -579,5 +585,13 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private void newGrafo(ActionEvent event) {
         initNewGrafo();
+    }
+
+    @FXML
+    private void mfloyd(KeyEvent event) {
+    }
+
+    @FXML
+    private void msolfloyd(KeyEvent event) {
     }
 }

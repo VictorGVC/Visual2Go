@@ -18,11 +18,23 @@ public class Grafo {
     private List<ArrayList<Vertice>> la;
     private List<Vertice> lbfsc;
     private int [][] matcor;
+    private int [][] mfloyd;
+    private char [][] msfloyd;
 
     public Grafo(String tipo, boolean dir) {
         this.tipo = tipo;
         this.dir = dir;
         ma = new int [10][10];
+        mfloyd = new int [10][10];
+        for (int i = 0; i < 10; i++) 
+        {
+            for (int j = 0; j < 10; j++) 
+            {
+                if(i != j)
+                    mfloyd[i][j] = 99999999;
+            }
+        }
+        msfloyd = new char [10][10];
         mi = new ArrayList<>();
         la = new ArrayList<>();
         initLa();
@@ -34,6 +46,16 @@ public class Grafo {
         vlist = new ArrayList<>();
         alist = new ArrayList<>();
         ma = new int [10][10];
+        mfloyd = new int [10][10];
+        for (int i = 0; i < 10; i++) 
+        {
+            for (int j = 0; j < 10; j++) 
+            {
+                if(i != j)
+                    mfloyd[i][j] = 99999999;
+            }
+        }
+        msfloyd = new char [10][10];
         mi = new ArrayList<>();
         la = new ArrayList<>();
         initLa();
@@ -47,6 +69,16 @@ public class Grafo {
         vlist = new ArrayList<>();
         alist = new ArrayList<>();
         ma = new int [10][10];
+        mfloyd = new int [10][10];
+        for (int i = 0; i < 10; i++) 
+        {
+            for (int j = 0; j < 10; j++) 
+            {
+                if(i != j)
+                    mfloyd[i][j] = 99999999;
+            }
+        }
+        msfloyd = new char [10][10];
         mi = new ArrayList<>();
         la = new ArrayList<>();
         initLa();
@@ -243,6 +275,7 @@ public class Grafo {
     public void addMa(int x,int y,int info)
     {
         ma[x][y] = info;
+        mfloyd[x][y] = info;
     }
 
     public int[][] getMa() {
@@ -312,4 +345,24 @@ public class Grafo {
     public void setDir(boolean dir) {
         this.dir = dir;
     }
+    
+    public void cheapestPath()
+    {
+        
+        for (int i = 0; i < 10; i++) 
+        {
+            for (int j = 0; j < 10; j++) 
+            {
+                for (int k = 0; k < 10; k++) 
+                {
+                    if(ma[j][k] > mfloyd[j][i] + mfloyd[i][k])
+                    {
+                        mfloyd[j][k] = mfloyd[j][i] + mfloyd[i][k];
+                        msfloyd[j][k] = (char)(i + 65);
+                    }
+                }
+            }
+        }
+    }
+    
 }
