@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
+<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
    <children>
       <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="300.0" prefWidth="789.0" style="-fx-background-color: #99d2e0;" />
       <HBox alignment="CENTER" fillHeight="false" prefHeight="60.0" prefWidth="800.0" spacing="28.0" style="-fx-background-color: #34acbc;">
@@ -60,7 +60,7 @@
               </rowConstraints>
             </GridPane>
             <JFXTextArea fx:id="taFila" editable="false" focusColor="BLACK" prefHeight="315.0" prefWidth="400.0" unFocusColor="BLACK" visible="false" />
-            <GridPane fx:id="gpmatrizadj1" layoutX="400.0" layoutY="25.0" onKeyTyped="#mfloyd" prefHeight="270.0" prefWidth="375.0" visible="false">
+            <GridPane fx:id="gpmsfloyd" layoutX="400.0" layoutY="25.0" onKeyTyped="#mfloyd" prefHeight="270.0" prefWidth="375.0" visible="false">
                <columnConstraints>
                   <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
                   <ColumnConstraints hgrow="SOMETIMES" />
@@ -71,7 +71,7 @@
                   <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <GridPane fx:id="gpmatrizadj11" layoutX="25.0" layoutY="25.0" onKeyTyped="#msolfloyd" prefHeight="270.0" prefWidth="375.0" visible="false">
+            <GridPane fx:id="gpmfloyd" layoutX="25.0" layoutY="25.0" onKeyTyped="#msolfloyd" prefHeight="270.0" prefWidth="375.0" visible="false">
                <columnConstraints>
                   <ColumnConstraints halignment="RIGHT" hgrow="ALWAYS" />
                   <ColumnConstraints hgrow="SOMETIMES" />

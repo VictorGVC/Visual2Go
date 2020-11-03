@@ -47,15 +47,16 @@ public class Grafo {
         alist = new ArrayList<>();
         ma = new int [10][10];
         mfloyd = new int [10][10];
+        msfloyd = new char [10][10];
         for (int i = 0; i < 10; i++) 
         {
             for (int j = 0; j < 10; j++) 
             {
                 if(i != j)
                     mfloyd[i][j] = 99999999;
+                msfloyd[i][j] = ' ';
             }
         }
-        msfloyd = new char [10][10];
         mi = new ArrayList<>();
         la = new ArrayList<>();
         initLa();
@@ -70,15 +71,16 @@ public class Grafo {
         alist = new ArrayList<>();
         ma = new int [10][10];
         mfloyd = new int [10][10];
+        msfloyd = new char [10][10];
         for (int i = 0; i < 10; i++) 
         {
             for (int j = 0; j < 10; j++) 
             {
                 if(i != j)
                     mfloyd[i][j] = 99999999;
+                msfloyd[i][j] = ' ';
             }
         }
-        msfloyd = new char [10][10];
         mi = new ArrayList<>();
         la = new ArrayList<>();
         initLa();
@@ -345,10 +347,25 @@ public class Grafo {
     public void setDir(boolean dir) {
         this.dir = dir;
     }
+
+    public int[][] getMfloyd() {
+        return mfloyd;
+    }
+
+    public void setMfloyd(int[][] mfloyd) {
+        this.mfloyd = mfloyd;
+    }
+
+    public char[][] getMsfloyd() {
+        return msfloyd;
+    }
+
+    public void setMsfloyd(char[][] msfloyd) {
+        this.msfloyd = msfloyd;
+    }
     
     public void cheapestPath()
     {
-        
         for (int i = 0; i < 10; i++) 
         {
             for (int j = 0; j < 10; j++) 
@@ -364,5 +381,4 @@ public class Grafo {
             }
         }
     }
-    
 }

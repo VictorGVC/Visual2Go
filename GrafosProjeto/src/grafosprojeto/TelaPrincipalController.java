@@ -66,9 +66,9 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private JFXButton btnew;
     @FXML
-    private GridPane gpmatrizadj1;
+    private GridPane gpmsfloyd;
     @FXML
-    private GridPane gpmatrizadj11;
+    private GridPane gpmfloyd;
 
     @Override  
     public void initialize(URL url, ResourceBundle rb) {
@@ -94,9 +94,10 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizcores.getChildren().clear();
         gpmatrizinc.getChildren().clear();
         gpmatrizcores.getChildren().clear();
+        gpmfloyd.getChildren().clear();
+        gpmsfloyd.getChildren().clear();
         taFila.setText("");
         taLista.setText("");
-        
         
         lbQtdeV.setText("V = 0");
         lbQtdeA.setText("A = 0");
@@ -143,9 +144,10 @@ public class TelaPrincipalController implements Initializable {
         list.add("Matriz de Adjacência");
         list.add("Matriz de Incidência");
         list.add("Lista de Adjacência");
-        list.add("Floyd");
         if(!g.isDir())
             list.add("Coloração");
+        else
+            list.add("Floyd");
         
         cbMatrizes.setItems(FXCollections.observableArrayList(list));
     }
@@ -168,6 +170,8 @@ public class TelaPrincipalController implements Initializable {
                             taLista.setVisible(false);
                             gpmatrizcores.setVisible(false);
                             taFila.setVisible(false);
+                            gpmfloyd.setVisible(false);
+                            gpmsfloyd.setVisible(false);
                         break;
                     case 1:
                         gpmatrizadj.setVisible(false);
@@ -175,6 +179,8 @@ public class TelaPrincipalController implements Initializable {
                         taLista.setVisible(false);
                         gpmatrizcores.setVisible(false);
                         taFila.setVisible(false);
+                        gpmfloyd.setVisible(false);
+                        gpmsfloyd.setVisible(false);
                         break;
                     case 2:
                         gpmatrizadj.setVisible(false);
@@ -182,14 +188,27 @@ public class TelaPrincipalController implements Initializable {
                         taLista.setVisible(true);
                         gpmatrizcores.setVisible(false);
                         taFila.setVisible(false);
+                        gpmfloyd.setVisible(false);
+                        gpmsfloyd.setVisible(false);
                         break;   
                     case 3:
                         gpmatrizadj.setVisible(false);
                         gpmatrizinc.setVisible(false);
                         taLista.setVisible(false);
-                        gpmatrizcores.setVisible(true);
+                        if (!g.isDir()) {
+                            
+                            gpmatrizcores.setVisible(true);
+                            gpmfloyd.setVisible(false);
+                            gpmsfloyd.setVisible(false);
+                        }
+                        else {
+                            
+                            gpmatrizcores.setVisible(false);
+                            gpmfloyd.setVisible(true);
+                            gpmsfloyd.setVisible(true);
+                        }    
                         taFila.setVisible(true);
-                        break;     
+                        break;
                     default:
                         break;
                 }
@@ -211,6 +230,14 @@ public class TelaPrincipalController implements Initializable {
         gpmatrizcores.setHgap(5);
         gpmatrizcores.setAlignment(Pos.CENTER_LEFT);
         
+        gpmfloyd.setVgap(5);
+        gpmfloyd.setHgap(5);
+        gpmfloyd.setAlignment(Pos.CENTER_RIGHT);
+        
+        gpmsfloyd.setVgap(5);
+        gpmsfloyd.setHgap(5);
+        gpmsfloyd.setAlignment(Pos.CENTER_RIGHT);    
+        
         if(!g.isDir())
             for (int i = 1 ; i <= 10 ; i++)
                 gpmatrizcores.add(new Label(""+i),i,0);
@@ -231,7 +258,6 @@ public class TelaPrincipalController implements Initializable {
             }
         }  
     }
-    
     
     private void atualizaGpMi(Aresta a) {
         
@@ -300,11 +326,46 @@ public class TelaPrincipalController implements Initializable {
         taFila.setText(linha);
     }
     
+    private void atualizaGpFloyd(){
+        
+        int [][] matm = g.getMfloyd();
+        int auxm;
+        char [][] matms = g.getMsfloyd();
+        char auxms;
+        
+        gpmfloyd.getChildren().clear();
+        gpmsfloyd.getChildren().clear();
+        for (int i = 0; i < g.getVlist().size(); i++) {
+            
+            gpmfloyd.add(new Label(""+(char)(i+65)),i+1,0);
+            gpmfloyd.add(new Label(""+(char)(i+65)),0,i+1);
+            
+            gpmsfloyd.add(new Label(""+(char)(i+65)),i+1,0);
+            gpmsfloyd.add(new Label(""+(char)(i+65)),0,i+1);
+            
+            for (int j = 0; j < g.getVlist().size(); j++) {
+                
+                auxm = matm[j][i];
+                auxms = matms[j][i];
+                if (auxm == 99999999)
+                    gpmfloyd.add(new Label(""+(char)35),i+1,j+1);
+                else    
+                    gpmfloyd.add(new Label(""+auxm),i+1,j+1);
+                if (auxms == ' ')
+                    gpmsfloyd.add(new Label("0"),i+1,j+1);
+                else
+                    gpmsfloyd.add(new Label(""+auxms),i+1,j+1);
+            }
+        }  
+    }
+    
     private void atualizaRep(Aresta a) {
         
+        g.cheapestPath();
         atualizaGpMa();
         atualizaGpMi(a);
         atualizaLista();
+        atualizaGpFloyd();
     }
     
     private void addVerticeMatriz(char id) {
