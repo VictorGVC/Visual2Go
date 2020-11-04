@@ -1,5 +1,6 @@
 package grafosprojeto.objetos;
 
+import grafosprojeto.TelaPrincipalController;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -406,5 +407,32 @@ public class Grafo {
             path += "\n\n\ncusto\n" + mfloyd[ini-65][fim-65];
         
         return path;
+    }
+    
+    public void getCheapestPath2(char ini, char fim) {
+
+	int custo = 0;
+	String caminho = ini + " -> ";
+
+	getCheapestPath(ini, fim, custo, caminho, false);
+    }
+    
+    private void getCheapestPath(char ini, char fim, int custo, String caminho, boolean flag) {
+
+	int i = ini - 65, j = fim - 65;
+
+	if (mfloyd[i][j] != 0 && mfloyd[i][j] != 99999999) {
+
+            caminho += msfloyd[i][j] + " -> ";
+            if (flag)
+                custo += mfloyd[i][j];
+            getCheapestPath(msfloyd[i][j], fim, custo, caminho, true);
+	}
+	else {
+
+            caminho += msfloyd[i][j];
+            custo += mfloyd[i][j];
+            TelaPrincipalController.taresultfloyd.setText(caminho + "\n\nCusto = " + custo);
+	}
     }
 }

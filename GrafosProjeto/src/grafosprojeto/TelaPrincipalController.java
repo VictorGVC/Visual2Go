@@ -22,7 +22,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -75,7 +74,7 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private JFXTextField txvfim;
     @FXML
-    private JFXTextArea taresultfloyd;
+    public static JFXTextArea taresultfloyd;
 
     @Override  
     public void initialize(URL url, ResourceBundle rb) {
@@ -658,7 +657,8 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private void clkmelhor(ActionEvent event) 
     {
-        taresultfloyd.setText(g.getCheapestPath(txvini.getText().charAt(0), txvfim.getText().charAt(0)));
+        g.getCheapestPath2(txvini.getText().charAt(0), txvfim.getText().charAt(0));
+        //taresultfloyd.setText(g.getCheapestPath(txvini.getText().charAt(0), txvfim.getText().charAt(0)));
     }
 
 }
