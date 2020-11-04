@@ -74,7 +74,7 @@ public class TelaPrincipalController implements Initializable {
     @FXML
     private JFXTextField txvfim;
     @FXML
-    public static JFXTextArea taresultfloyd;
+    private JFXTextArea taresultfloyd;
 
     @Override  
     public void initialize(URL url, ResourceBundle rb) {
@@ -655,10 +655,8 @@ public class TelaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void clkmelhor(ActionEvent event) 
-    {
-        g.getCheapestPath2(txvini.getText().charAt(0), txvfim.getText().charAt(0));
-        //taresultfloyd.setText(g.getCheapestPath(txvini.getText().charAt(0), txvfim.getText().charAt(0)));
+    private void clkmelhor(ActionEvent event) {
+        
+        taresultfloyd.setText(g.getCheapestPath(txvini.getText().charAt(0), txvfim.getText().charAt(0)));
     }
-
 }

@@ -383,68 +383,31 @@ public class Grafo {
         }
     }
     
-    public String getCheapestPath(char ini, char fim)
-    {
-        String path = fim + " <- ";
-        
-        int i = ini,j = fim,ix,jx,aux,aux2 = ',';
-        
-        if(mfloyd[i-65][j-65] != 99999999)
-        {
-            i -= 65; jx = j -= 65;
-            while(msfloyd[i][j] != '0' && msfloyd[i][j] != ' ')
-            {
-                ix = aux2 = msfloyd[i][j] - 65;
-                jx = j;
-                
-                while(msfloyd[ix][jx] != '0' && msfloyd[ix][jx] != ' ')
-                {
-                    path += ""+msfloyd[ix][jx]+" <- ";
-                    aux = ix;
-                    ix = msfloyd[ix][jx]-65;
-                    jx = aux;
-                }
-                j = aux2;
-            }
-        }
-        
-        if(aux2 != ',')
-            path += msfloyd[i][aux2] + " <- " +ini;
-        else
-            path += ini;
-        
-        if(mfloyd[ini-65][fim-65] == 99999999)
-            path += "\n\n\ncusto\ninfinito";
-        else
-            path += "\n\n\ncusto\n" + mfloyd[ini-65][fim-65];
-        
-        return path;
-    }
-    
-    public void getCheapestPath2(char ini, char fim) {
+    public String getCheapestPath(char ini, char fim) {
 
 	int custo = 0;
 	String caminho = ini + " -> ";
 
-	getCheapestPath(ini, fim, custo, caminho, false);
+	return getCheapestPath(ini, fim, custo, caminho, true);
     }
     
-    private void getCheapestPath(char ini, char fim, int custo, String caminho, boolean flag) {
+    private String getCheapestPath(char ini, char fim, int custo, String caminho, boolean flag) {
 
 	int i = ini - 65, j = fim - 65;
 
-	if (mfloyd[i][j] != 0 && mfloyd[i][j] != 99999999) {
+	if (mfloyd[i][j] != 0 && mfloyd[i][j] != 99999999 && msfloyd[i][j] != ' ') {
 
             caminho += msfloyd[i][j] + " -> ";
             if (flag)
-                custo += mfloyd[i][j];
-            getCheapestPath(msfloyd[i][j], fim, custo, caminho, true);
+                custo = mfloyd[i][j];
+            
+            return getCheapestPath(msfloyd[i][j], fim, custo, caminho, false);
 	}
 	else {
 
-            caminho += msfloyd[i][j];
-            custo += mfloyd[i][j];
-            TelaPrincipalController.taresultfloyd.setText(caminho + "\n\nCusto = " + custo);
+            caminho += fim;
+            
+            return caminho + "\n\nCusto = " + custo;
 	}
     }
 }
