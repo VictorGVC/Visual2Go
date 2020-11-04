@@ -3,6 +3,7 @@ package grafosprojeto;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
+import com.jfoenix.controls.JFXTextField;
 import grafosprojeto.objetos.Aresta;
 import grafosprojeto.objetos.Grafo;
 import grafosprojeto.objetos.Vertice;
@@ -69,6 +70,12 @@ public class TelaPrincipalController implements Initializable {
     private GridPane gpmsfloyd;
     @FXML
     private GridPane gpmfloyd;
+    @FXML
+    private JFXTextField txvini;
+    @FXML
+    private JFXTextField txvfim;
+    @FXML
+    private JFXTextArea taresultfloyd;
 
     @Override  
     public void initialize(URL url, ResourceBundle rb) {
@@ -649,10 +656,9 @@ public class TelaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void mfloyd(KeyEvent event) {
+    private void clkmelhor(ActionEvent event) 
+    {
+        taresultfloyd.setText(g.getCheapestPath(txvini.getText().charAt(0), txvfim.getText().charAt(0)));
     }
 
-    @FXML
-    private void msolfloyd(KeyEvent event) {
-    }
 }
