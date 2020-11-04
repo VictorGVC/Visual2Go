@@ -373,7 +373,7 @@ public class Grafo {
             {
                 for (int k = 0; k < vlist.size(); k++) 
                 {
-                    if(k != i && i != j && j != k && ma[j][k] > mfloyd[j][i] + mfloyd[i][k])
+                    if(j != k && mfloyd[j][k] > mfloyd[j][i] + mfloyd[i][k])
                     {
                         mfloyd[j][k] = mfloyd[j][i] + mfloyd[i][k];
                         msfloyd[j][k] = (char)(i + 65);
@@ -387,19 +387,31 @@ public class Grafo {
     {
         String path = fim + " <- ";
         
-        int i = ini,j = fim,ix,jx;
+        int i = ini,j = fim,ix,jx,aux,aux2 = ',';
         
-        while(mfloyd[i][j] != 0 && mfloyd[i][j] != 99999999)
+        if(mfloyd[i-65][j-65] != 99999999)
         {
-            ix = mfloyd[i][j];
-            jx = j;
-            while(mfloyd[ix][jx] != 0)
+            i -= 65; jx = j -= 65;
+            while(msfloyd[i][j] != '0' && msfloyd[i][j] != ' ')
             {
+                ix = aux2 = msfloyd[i][j] - 65;
+                jx = j;
                 
+                while(msfloyd[ix][jx] != '0' && msfloyd[ix][jx] != ' ')
+                {
+                    path += ""+msfloyd[ix][jx]+" <- ";
+                    aux = ix;
+                    ix = msfloyd[ix][jx]-65;
+                    jx = aux;
+                }
+                j = aux2;
             }
         }
         
-        path += "ini";
+        if(aux2 != ',')
+            path += msfloyd[i][aux2] + " <- " +ini;
+        else
+            path += ini;
         
         if(mfloyd[ini-65][fim-65] == 99999999)
             path += "\n\n\ncusto\ninfinito";

@@ -86,7 +86,7 @@
             <JFXTextField fx:id="txvini" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="83.0" promptText="Inicial" />
             <JFXTextField fx:id="txvfim" layoutX="121.0" layoutY="25.0" prefHeight="25.0" prefWidth="87.0" promptText="Final" />
             <JFXTextArea fx:id="taresultfloyd" layoutX="25.0" layoutY="108.0" prefHeight="185.0" prefWidth="192.0" />
-            <JFXButton layoutX="72.0" layoutY="72.0" onAction="#clkmelhor" text="Melhor Camiho" />
+            <JFXButton layoutX="69.0" layoutY="71.0" onAction="#clkmelhor" text="Melhor Caminho" />
          </children></Pane>
    </children>
 </VBox>
