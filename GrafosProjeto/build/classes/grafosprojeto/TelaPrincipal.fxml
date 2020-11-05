@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
+<VBox fx:id="pnPrincipal" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="635.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="grafosprojeto.TelaPrincipalController">
    <children>
       <Pane fx:id="pngrafo" onMouseClicked="#addVertice" prefHeight="300.0" prefWidth="789.0" style="-fx-background-color: #99d2e0;" />
       <HBox alignment="CENTER" fillHeight="false" prefHeight="60.0" prefWidth="800.0" spacing="28.0" style="-fx-background-color: #34acbc;">
@@ -83,10 +83,10 @@
                   <RowConstraints vgrow="SOMETIMES" />
                </rowConstraints>
             </GridPane>
-            <JFXTextField fx:id="txvini" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="83.0" promptText="Inicial" />
-            <JFXTextField fx:id="txvfim" layoutX="121.0" layoutY="25.0" prefHeight="25.0" prefWidth="87.0" promptText="Final" />
-            <JFXTextArea fx:id="taresultfloyd" layoutX="25.0" layoutY="108.0" prefHeight="185.0" prefWidth="192.0" />
-            <JFXButton layoutX="69.0" layoutY="71.0" onAction="#clkmelhor" text="Melhor Caminho" />
+            <JFXTextField fx:id="txvini" focusColor="BLACK" labelFloat="true" layoutX="326.0" layoutY="25.0" prefHeight="25.0" prefWidth="72.0" promptText="Início" unFocusColor="BLACK" />
+            <JFXTextField fx:id="txvfim" focusColor="BLACK" labelFloat="true" layoutX="403.0" layoutY="25.0" prefHeight="25.0" prefWidth="72.0" promptText="Fim" unFocusColor="BLACK" />
+            <JFXButton fx:id="btbestway" layoutX="338.0" layoutY="71.0" onAction="#clkmelhor" prefHeight="25.0" prefWidth="130.0" style="-fx-background-image: url('icons/way.png'); -fx-background-position: left; -fx-background-repeat: no-repeat; -fx-background-color: transparent;" text="Melhor Caminho" textAlignment="RIGHT" />
+            <JFXTextArea fx:id="taresultfloyd" editable="false" focusColor="BLACK" layoutX="343.0" layoutY="109.0" prefHeight="215.0" prefWidth="192.0" unFocusColor="BLACK" />
          </children></Pane>
    </children>
 </VBox>

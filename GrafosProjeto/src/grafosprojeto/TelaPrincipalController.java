@@ -75,6 +75,8 @@ public class TelaPrincipalController implements Initializable {
     private JFXTextField txvfim;
     @FXML
     private JFXTextArea taresultfloyd;
+    @FXML
+    private JFXButton btbestway;
 
     @Override  
     public void initialize(URL url, ResourceBundle rb) {
@@ -154,6 +156,7 @@ public class TelaPrincipalController implements Initializable {
             list.add("Coloração");
         else
             list.add("Floyd");
+        list.add("Caminho Mínimo");
         
         cbMatrizes.setItems(FXCollections.observableArrayList(list));
     }
@@ -178,6 +181,11 @@ public class TelaPrincipalController implements Initializable {
                             taFila.setVisible(false);
                             gpmfloyd.setVisible(false);
                             gpmsfloyd.setVisible(false);
+                            taFila.setVisible(false);
+                            txvini.setVisible(false);
+                            txvfim.setVisible(false);
+                            btbestway.setVisible(false);
+                            taresultfloyd.setVisible(false);
                         break;
                     case 1:
                         gpmatrizadj.setVisible(false);
@@ -187,6 +195,11 @@ public class TelaPrincipalController implements Initializable {
                         taFila.setVisible(false);
                         gpmfloyd.setVisible(false);
                         gpmsfloyd.setVisible(false);
+                        taFila.setVisible(false);
+                        txvini.setVisible(false);
+                        txvfim.setVisible(false);
+                        btbestway.setVisible(false);
+                        taresultfloyd.setVisible(false);
                         break;
                     case 2:
                         gpmatrizadj.setVisible(false);
@@ -196,6 +209,11 @@ public class TelaPrincipalController implements Initializable {
                         taFila.setVisible(false);
                         gpmfloyd.setVisible(false);
                         gpmsfloyd.setVisible(false);
+                        taFila.setVisible(false);
+                        txvini.setVisible(false);
+                        txvfim.setVisible(false);
+                        btbestway.setVisible(false);
+                        taresultfloyd.setVisible(false);
                         break;   
                     case 3:
                         gpmatrizadj.setVisible(false);
@@ -213,8 +231,24 @@ public class TelaPrincipalController implements Initializable {
                             gpmfloyd.setVisible(true);
                             gpmsfloyd.setVisible(true);
                         }    
-                        taFila.setVisible(true);
+                        taFila.setVisible(false);
+                        txvini.setVisible(false);
+                        txvfim.setVisible(false);
+                        btbestway.setVisible(false);
+                        taresultfloyd.setVisible(false);
                         break;
+                    case 4:
+                        gpmatrizadj.setVisible(false);
+                        gpmatrizinc.setVisible(false);
+                        taLista.setVisible(false);
+                        gpmatrizcores.setVisible(false);
+                        taFila.setVisible(false);
+                        gpmfloyd.setVisible(false);
+                        gpmsfloyd.setVisible(false);
+                        txvini.setVisible(true);
+                        txvfim.setVisible(true);
+                        btbestway.setVisible(true);
+                        taresultfloyd.setVisible(true);
                     default:
                         break;
                 }
@@ -617,8 +651,8 @@ public class TelaPrincipalController implements Initializable {
         
         if(!g.isDir())
         {
-//            g.atualizaCor();
-//            atualizaGpCor();
+            g.atualizaCor();
+            atualizaGpCor();
             atualizaFila();
         }
     }
